@@ -27,3 +27,9 @@ def test_multiple_paragraphs():
     assert result[0]["content"] == "First paragraph"
     assert result[1]["type"] == "paragraph"
     assert result[1]["content"] == "Second paragraph"
+
+
+def test_header_levels():
+    assert tokenize("# One")[0]["level"] == 1
+    assert tokenize("## Two")[0]["level"] == 2
+    assert tokenize("### Three")[0]["level"] == 3
