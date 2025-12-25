@@ -20,16 +20,6 @@ Akidocs is available from GitHub (https://github.com/AkiPoh/akidocs), with relea
 
 ### Install from GitHub Releases (Preferred)
 Go to GitHub Releases (https://github.com/AkiPoh/akidocs/releases) and follow the instructions for the most recent release.
- 
-### Install from Source (Advanced)
-Clone the repository first, then:
-
-```powershell
-# Move to correct directory from repository root
-cd ./akidocs-core
-# Install Akidocs globally
-uv tool install .
-```
 
 ## Usage
 ```powershell
@@ -51,9 +41,10 @@ uv run python -m pytest
 uv run python -m akidocs_core test.md output.pdf 
 ```
 
-**Testing build**
+**Installing globally and testing build**
 ```powershell
 cd ./akidocs-core
+# Install Akidocs globally
 uv tool install .
 cd ..
 aki test.md output.pdf
