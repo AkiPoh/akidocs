@@ -10,15 +10,15 @@ def render_pdf(tokens: list) -> bytes:
     pdf.add_page()
 
     for token in tokens:
-        if isinstance(token, Header):
-            level = token.level
-            size = HEADER_FONT_SIZES.get(level, 12)
-            pdf.set_font("Times", style="B", size=size)
-            pdf.multi_cell(0, size * 0.5, token.content)
-            pdf.ln(4)
-        elif isinstance(token, Paragraph):
-            pdf.set_font("Times", size=12)
-            pdf.multi_cell(0, 6, token.content)
-            pdf.ln(2)
+        match token:
+            case Header(level=level, content=content):
+                size = HEADER_FONT_SIZES.get(level, 12)
+                pdf.set_font("Times", style="B", size=size)
+                pdf.multi_cell(0, size * 0.5, content)
+                pdf.ln(4)
+            case Paragraph(content=content):
+                pdf.set_font("Times", size=12)
+                pdf.multi_cell(0, 6, content)
+                pdf.ln(2)
 
     return bytes(pdf.output())
