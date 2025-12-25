@@ -10,3 +10,11 @@ def test_plain_paragraph():
     assert len(result) == 1
     assert result[0]["type"] == "paragraph"
     assert result[0]["content"] == "Hello world"
+
+
+def test_header_level_one():
+    result = tokenize("# Hello")
+    assert len(result) == 1
+    assert result[0]["type"] == "header"
+    assert result[0]["level"] == 1
+    assert result[0]["content"] == "Hello"
