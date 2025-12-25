@@ -6,3 +6,13 @@ def test_render_returns_bytes():
     result = render_pdf(tokens)
     assert isinstance(result, bytes)
     assert len(result) > 0
+
+
+def test_render_handles_headers():
+    tokens = [
+        {"type": "header", "level": 1, "content": "Title"},
+        {"type": "paragraph", "content": "Body text"},
+    ]
+    result = render_pdf(tokens)
+    assert isinstance(result, bytes)
+    assert len(result) > 0
