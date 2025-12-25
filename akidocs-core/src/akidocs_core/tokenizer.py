@@ -2,6 +2,8 @@ from akidocs_core.tokens import Header, Paragraph, Token
 
 
 def tokenize(text: str) -> list[Token]:
+    text = text.replace("\r\n", "\n")
+
     if text == "":
         return []
 
