@@ -34,3 +34,32 @@ def test_header_levels():
     assert tokenize("# One")[0].level == 1
     assert tokenize("## Two")[0].level == 2
     assert tokenize("### Three")[0].level == 3
+
+
+def test_windows_line_endings():
+    result = tokenize("First paragraph\r\n\r\nSecond paragraph")
+    assert len(result) == 2
+    assert result[0].content == "First paragraph"
+    assert result[1].content == "Second paragraph"
+
+
+def test_header_requires_space():
+    result = tokenize("#NoSpace")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == "#NoSpace"
+
+
+def test_header_empty_content():
+    result = tokenize("##")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 2
+    assert result[0].content == ""
+
+
+def test_header_level_seven_becomes_paragraph():
+    result = tokenize("####### Seven hashes")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == "####### Seven hashes"
