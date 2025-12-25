@@ -19,5 +19,5 @@ jobs:
         working-directory: ./akidocs-core
         run: |
           uv sync
-          uv pip install -e
+          uv pip install -e .
           uv run python -m pytest
