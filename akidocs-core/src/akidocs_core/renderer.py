@@ -1,6 +1,6 @@
 from fpdf import FPDF
 
-from akidocs_core.tokens import Header, Paragraph, Token
+from akidocs_core.tokens import Header, InlineToken, Italic, Paragraph, Text, Token
 
 # Typography (points - standard typographic unit)
 FONT_FAMILY = "Times"
@@ -21,17 +21,35 @@ def _pt_to_mm(pt: float) -> float:
     return pt * 0.352778
 
 
-def _render_header(pdf: FPDF, level: int, content: str) -> None:
+def _render_inline_tokens(
+    pdf: FPDF,
+    tokens: list[InlineToken],
+    base_style: str,
+    size: float,
+    line_height: float,
+) -> None:
+    for token in tokens:
+        match token:
+            case Text(content=content):
+                pdf.set_font(FONT_FAMILY, style=base_style, size=size)
+                pdf.write(line_height, content)
+            case Italic(content=content):
+                italic_style = "BI" if "B" in base_style else "I"
+                pdf.set_font(FONT_FAMILY, style=italic_style, size=size)
+                pdf.write(line_height, content)
+
+
+def _render_header(pdf: FPDF, level: int, content: list[InlineToken]) -> None:
     size = HEADER_FONT_SIZES.get(level, BASE_FONT_SIZE)
-    pdf.set_font(FONT_FAMILY, style="B", size=size)
-    pdf.multi_cell(0, _pt_to_mm(size * HEADER_LINE_HEIGHT_FACTOR), content)
-    pdf.ln(_pt_to_mm(HEADER_MARGIN_AFTER))
+    line_height = _pt_to_mm(size * HEADER_LINE_HEIGHT_FACTOR)
+    _render_inline_tokens(pdf, content, "B", size, line_height)
+    pdf.ln(line_height + _pt_to_mm(HEADER_MARGIN_AFTER))
 
 
-def _render_paragraph(pdf: FPDF, content: str) -> None:
-    pdf.set_font(FONT_FAMILY, size=BASE_FONT_SIZE)
-    pdf.multi_cell(0, _pt_to_mm(BASE_FONT_SIZE * PARAGRAPH_LINE_HEIGHT_FACTOR), content)
-    pdf.ln(_pt_to_mm(PARAGRAPH_MARGIN_AFTER))
+def _render_paragraph(pdf: FPDF, content: list[InlineToken]) -> None:
+    line_height = _pt_to_mm(BASE_FONT_SIZE * PARAGRAPH_LINE_HEIGHT_FACTOR)
+    _render_inline_tokens(pdf, content, "", BASE_FONT_SIZE, line_height)
+    pdf.ln(line_height + _pt_to_mm(PARAGRAPH_MARGIN_AFTER))
 
 
 def render_pdf(tokens: list[Token]) -> bytes:
