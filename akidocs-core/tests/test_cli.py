@@ -1,4 +1,5 @@
 import subprocess
+from importlib.metadata import version
 from pathlib import Path
 
 
@@ -33,7 +34,7 @@ def test_cli_version_long_flag():
         text=True,
     )
     assert result.returncode == 0
-    assert "akidocs-core" in result.stdout
+    assert f"akidocs-core {version('akidocs-core')}" in result.stdout
 
 
 def test_cli_version_short_flag():
@@ -43,7 +44,7 @@ def test_cli_version_short_flag():
         text=True,
     )
     assert result.returncode == 0
-    assert "akidocs-core" in result.stdout
+    assert f"akidocs-core {version('akidocs-core')}" in result.stdout
 
 
 def test_cli_help_long_flag():
@@ -53,13 +54,18 @@ def test_cli_help_long_flag():
         text=True,
     )
     assert result.returncode == 0
-    assert "usage" in result.stdout.lower()
+    assert version("akidocs-core") in result.stdout
+    assert "input" in result.stdout.lower()
+    assert "output" in result.stdout.lower()
 
-    def test_cli_help_short_flag():
-        result = subprocess.run(
-            ["uv", "run", "python", "-m", "akidocs_core", "-h"],
-            capture_output=True,
-            text=True,
-        )
-        assert result.returncode == 0
-        assert "usage" in result.stdout.lower()
+
+def test_cli_help_short_flag():
+    result = subprocess.run(
+        ["uv", "run", "python", "-m", "akidocs_core", "-h"],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    assert version("akidocs-core") in result.stdout
+    assert "input" in result.stdout.lower()
+    assert "output" in result.stdout.lower()
