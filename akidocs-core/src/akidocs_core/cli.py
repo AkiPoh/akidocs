@@ -20,6 +20,12 @@ def main():
         action="version",
         version=f"akidocs-core {pkg_version}",
     )
+    parser.add_argument(
+        "-O",
+        "--open",
+        action="store_true",
+        help="Open the PDF in default application after creation",
+    )
     parser.add_argument("input", help="Input Markdown file")
     parser.add_argument("output", help="Output PDF file")
 
@@ -38,6 +44,8 @@ def main():
     output_path.write_bytes(pdf_bytes)
 
     print(f"Written to {output_path}")
+    if args.open:
+        print(f"Opening {output_path}")
 
 
 if __name__ == "__main__":
