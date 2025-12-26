@@ -55,8 +55,8 @@ uv sync
 uv pip install -e .
 # Run tests
 uv run python -m pytest
-# Output test PDF
-uv run python -m akidocs_core test.md output.pdf 
+# Output test PDF and open it
+uv run python -m akidocs_core test.md output.pdf -O
 ```
 
 **Installing globally and testing build**
@@ -65,5 +65,5 @@ cd ./akidocs-core
 # Install Akidocs globally
 uv tool install .
 cd ..
-aki test.md output.pdf
+aki test.md output.pdf -O
 ```

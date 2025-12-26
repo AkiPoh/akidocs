@@ -1,5 +1,5 @@
 from akidocs_core.renderer import render_pdf
-from akidocs_core.tokens import Header, Italic, Paragraph, Text
+from akidocs_core.tokens import Bold, Header, Italic, Paragraph, Text
 
 
 def test_render_returns_bytes():

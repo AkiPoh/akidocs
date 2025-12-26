@@ -14,7 +14,7 @@ def tokenize_inline(text: str) -> list[InlineToken]:
                 current = ""
 
             end = text.find("**", i + 2)
-            if end != 1:
+            if end != -1:
                 tokens.append(Bold(content=text[i + 2 : end]))
                 i = end + 2
             else:

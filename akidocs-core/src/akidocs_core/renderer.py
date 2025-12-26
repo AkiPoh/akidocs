@@ -1,6 +1,14 @@
 from fpdf import FPDF
 
-from akidocs_core.tokens import Header, InlineToken, Italic, Paragraph, Text, Token
+from akidocs_core.tokens import (
+    Bold,
+    Header,
+    InlineToken,
+    Italic,
+    Paragraph,
+    Text,
+    Token,
+)
 
 # Typography (points - standard typographic unit)
 FONT_FAMILY = "Times"
@@ -36,6 +44,10 @@ def _render_inline_tokens(
             case Italic(content=content):
                 italic_style = "BI" if "B" in base_style else "I"
                 pdf.set_font(FONT_FAMILY, style=italic_style, size=size)
+                pdf.write(line_height, content)
+            case Bold(content=content):
+                bold_style = "BI" if "I" in base_style else "B"
+                pdf.set_font(FONT_FAMILY, style=bold_style, size=size)
                 pdf.write(line_height, content)
 
 
