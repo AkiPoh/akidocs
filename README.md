@@ -11,6 +11,8 @@ Takes in a Markdown file, parses it, and outputs it as a PDF
 - Headers (levels 1-6)
 - Paragraphs
 - Usable as a CLI tool (`aki`)
+  - `-h` or `--help` for help information
+  - `-v` or `--version` for version information
 
 ## Prerequisites
 **Requires uv**, if not installed follow https://docs.astral.sh/uv/getting-started/installation/
@@ -24,7 +26,16 @@ Go to GitHub Releases (https://github.com/AkiPoh/akidocs/releases) and follow th
 ## Usage
 ```powershell
 # Usage after installed globally
+# Convert Markdown to PDF
 aki input.md output.pdf
+
+# Show help
+aki --help  # or:
+aki -h
+
+# Show version
+aki --version  # or:
+aki -v
 ```
 
 ## Development
