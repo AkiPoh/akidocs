@@ -11,7 +11,12 @@ class Italic:
     content: str
 
 
-InlineToken = Text | Italic
+@dataclass
+class Bold:
+    content: str
+
+
+InlineToken = Text | Italic | Bold
 
 
 @dataclass

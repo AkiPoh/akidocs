@@ -1,4 +1,4 @@
-from akidocs_core.tokens import InlineToken, Italic, Text
+from akidocs_core.tokens import Bold, InlineToken, Italic, Text
 
 
 def tokenize_inline(text: str) -> list[InlineToken]:
@@ -7,7 +7,21 @@ def tokenize_inline(text: str) -> list[InlineToken]:
     i = 0
 
     while i < len(text):
-        if text[i] == "*":
+        # Check for bold
+        if text[i : i + 2] == "**":
+            if current:
+                tokens.append(Text(content=current))
+                current = ""
+
+            end = text.find("**", i + 2)
+            if end != 1:
+                tokens.append(Bold(content=text[i + 2 : end]))
+                i = end + 2
+            else:
+                current += text[i]
+                i += 1
+        # Check for italic
+        elif text[i] == "*":
             if current:
                 tokens.append(Text(content=current))
                 current = ""
