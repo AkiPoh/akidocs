@@ -70,6 +70,10 @@ def main():
         print(f"Opening {output_path}")
         if not os.environ.get("AKIDOCS_TEST_MODE"):
             open_file(output_path)
+        else:
+            print(
+                f"Failed to open due to AKIDOCS_TEST_MODE being {os.environ.get('AKIDOCS_TEST_MODE')}"
+            )
 
 
 if __name__ == "__main__":
