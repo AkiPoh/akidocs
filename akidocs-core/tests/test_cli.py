@@ -69,3 +69,51 @@ def test_cli_help_short_flag():
     assert version("akidocs-core") in result.stdout
     assert "input" in result.stdout.lower()
     assert "output" in result.stdout.lower()
+
+
+def test_cli_open_long_flag(tmp_path):
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello\n\nWorld")
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "akidocs_core",
+            str(input_file),
+            str(output_file),
+            "--open",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    assert output_file.exists()
+    assert output_file.stat().st_size > 0
+    assert "open" in result.stdout.lower()
+
+
+def test_cli_open_short_flag(tmp_path):
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello\n\nWorld")
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "akidocs_core",
+            str(input_file),
+            str(output_file),
+            "-O",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    assert output_file.exists()
+    assert output_file.stat().st_size > 0
+    assert "open" in result.stdout.lower()
