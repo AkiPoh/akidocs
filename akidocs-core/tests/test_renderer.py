@@ -24,3 +24,10 @@ def test_render_handles_italic():
     result = render_pdf(tokens)
     assert isinstance(result, bytes)
     assert len(result) > 0
+
+
+def test_render_handles_bold():
+    tokens = [Paragraph(content=[Text(content="hello "), Bold(content="world")])]
+    result = render_pdf(tokens)
+    assert isinstance(result, bytes)
+    assert len(result) > 0
