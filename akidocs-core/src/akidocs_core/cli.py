@@ -23,7 +23,7 @@ def main():
         version=f"akidocs-core {pkg_version}",
     )
     parser.add_argument(
-        "-O",
+        "-o",
         "--open",
         action="store_true",
         help="Open the PDF in default application after creation",

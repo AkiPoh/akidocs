@@ -110,7 +110,7 @@ def test_cli_open_short_flag(tmp_path):
             "akidocs_core",
             str(input_file),
             str(output_file),
-            "-O",
+            "-o",
         ],
         capture_output=True,
         text=True,

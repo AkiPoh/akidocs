@@ -13,11 +13,12 @@ Takes in a Markdown file, parses it, and outputs it as a PDF
 - Inline formatting
   - `*Italics*` is *Italics*
   - `**Bold**` is **Bold**
-  - Does not currently compose inline styles additively
+  - `***Bold and Italic***` is ***Bold and Italic***
+  - Nested styles: for example `**bold with *italic* inside**` is **bold with *italic* inside** works correctly
 - Usable as a CLI tool (`aki`)
   - `-h` or `--help` for help information
   - `-v` or `--version` for version information
-  - `-O` or `--open` to open the PDF after creation
+  - `-o` or `--open` to open the PDF after creation
 
 ## Prerequisites
 **Requires uv**, if not installed follow https://docs.astral.sh/uv/getting-started/installation/
@@ -36,7 +37,7 @@ aki input.md output.pdf
 
 # Convert and open in default application
 aki input.md output.pdf --open  # or:
-aki input.md output.pdf -O
+aki input.md output.pdf -o
 
 # Show help
 aki --help  # or:
@@ -58,7 +59,7 @@ uv pip install -e .
 # Run tests
 uv run python -m pytest
 # Output test PDF and open it
-uv run python -m akidocs_core test.md output.pdf -O
+uv run python -m akidocs_core test.md output.pdf -o
 ```
 
 **Installing globally and testing build**
@@ -67,5 +68,5 @@ cd ./akidocs-core
 # Install Akidocs globally
 uv tool install .
 cd ..
-aki test.md output.pdf -O
+aki test.md output.pdf -o
 ```
