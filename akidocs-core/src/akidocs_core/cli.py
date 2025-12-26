@@ -1,33 +1,12 @@
 import argparse
 import os
-import subprocess
 import sys
 from importlib.metadata import version
 from pathlib import Path
 
+from akidocs_core.opener import open_file
 from akidocs_core.renderer import render_pdf
 from akidocs_core.tokenizer import tokenize
-
-
-def open_file(path):
-    """Open file in default application."""
-    try:
-        if sys.platform == "win32":
-            os.startfile(path)
-        elif sys.platform == "darwin":
-            subprocess.run(["open", path], check=True)
-        elif sys.platform.startswith("linux"):
-            subprocess.run(["xdg-open", path], check=True)
-        else:
-            print(f"Cannot open file: unsupported platform '{sys.platform}'")
-            return False
-    except OSError as e:
-        print(f"Cannot open file: {e}")
-        return False
-    except subprocess.CalledProcessError as e:
-        print(f"Cannot open file: command failed with exit code {e.returncode}")
-        return False
-    return True
 
 
 def main():
