@@ -6,6 +6,15 @@ from pathlib import Path
 import pytest
 
 
+def run_cli(*args, env=None):
+    return subprocess.run(
+        ["uv", "run", "python", "-m", "akidocs_core", *args],
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+
+
 def test_cli_produces_pdf(tmp_path):
     input_file = tmp_path / "test.md"
     output_file = tmp_path / "test.pdf"
@@ -31,11 +40,7 @@ def test_cli_produces_pdf(tmp_path):
 
 
 def test_cli_version_long_flag():
-    result = subprocess.run(
-        ["uv", "run", "python", "-m", "akidocs_core", "--version"],
-        capture_output=True,
-        text=True,
-    )
+    result = run_cli("--version")
     assert result.returncode == 0
     assert f"akidocs-core {version('akidocs-core')}" in result.stdout
 
