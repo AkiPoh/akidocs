@@ -117,23 +117,10 @@ def test_overwrite_prompt_accept(tmp_path):
     input_file.write_text("# Hello")
     output_file.write_text("existing content")
 
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-        ],
-        capture_output=True,
-        text=True,
-        input="y\n",
-    )
+    result = run_cli(str(input_file), str(output_file), input="y\n")
 
     assert result.returncode == 0
-    assert "[y/n]" in result.stdout.lower()  # prompt format
+    assert "[y/n]" in result.stdout.lower()
     assert output_file.read_bytes() != b"existing content"
 
 
@@ -145,20 +132,7 @@ def test_non_interactive_errors_on_existing_file(tmp_path):
     output_file.write_text("existing content")
     original_content = output_file.read_bytes()
 
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "--non-interactive",
-        ],
-        capture_output=True,
-        text=True,
-    )
+    result = run_cli(str(input_file), str(output_file), "--non-interactive")
 
     assert result.returncode != 0
     assert "exists" in result.stdout.lower() or "exists" in result.stderr.lower()
@@ -172,20 +146,7 @@ def test_non_interactive_short_flag(tmp_path):
     input_file.write_text("# Hello")
     output_file.write_text("existing content")
 
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-n",
-        ],
-        capture_output=True,
-        text=True,
-    )
+    result = run_cli(str(input_file), str(output_file), "-n")
 
     assert result.returncode != 0
     assert "exists" in result.stdout.lower() or "exists" in result.stderr.lower()
@@ -198,23 +159,10 @@ def test_force_overwrites_without_prompt(tmp_path):
     input_file.write_text("# Hello")
     output_file.write_text("existing content")
 
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "--force",
-        ],
-        capture_output=True,
-        text=True,
-    )
+    result = run_cli(str(input_file), str(output_file), "--force")
 
     assert result.returncode == 0
-    assert "[y/n]" not in result.stdout.lower()  # no prompt
+    assert "[y/n]" not in result.stdout.lower()
     assert output_file.read_bytes() != b"existing content"
 
 
@@ -225,20 +173,7 @@ def test_force_short_flag(tmp_path):
     input_file.write_text("# Hello")
     output_file.write_text("existing content")
 
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-f",
-        ],
-        capture_output=True,
-        text=True,
-    )
+    result = run_cli(str(input_file), str(output_file), "-f")
 
     assert result.returncode == 0
     assert output_file.read_bytes() != b"existing content"
@@ -251,21 +186,7 @@ def test_force_overrides_non_interactive(tmp_path):
     input_file.write_text("# Hello")
     output_file.write_text("existing content")
 
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-n",
-            "-f",
-        ],
-        capture_output=True,
-        text=True,
-    )
+    result = run_cli(str(input_file), str(output_file), "-n", "-f")
 
     assert result.returncode == 0
     assert output_file.read_bytes() != b"existing content"
