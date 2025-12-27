@@ -11,9 +11,9 @@ Early development release. Not yet usable for serious work. ⚠️
 
 Currently functional on *Windows 11 via PowerShell,* all instructions for PowerShell if not otherwise specified. Other platforms remain untested.
 
-See https://github.com/AkiPoh/akidocs/tree/v0.1.0-alpha for specific version's documentation. Replace version tag with right one.
+See https://github.com/AkiPoh/akidocs/tree/v0.2.0-alpha for specific version's documentation. Replace version tag with right one.
 
-Full Changelog: https://github.com/AkiPoh/akidocs/compare/v0.0.1-alpha...v0.1.0-alpha. Replace version tags with desired ones.
+Full Changelog: [https://github.com/AkiPoh/akidocs/compare/v0.1.0-alpha...v0.2.0-alpha](https://github.com/AkiPoh/akidocs/compare/v0.1.0-alpha...v0.2.0-alpha). Replace version tags with desired ones.
 
 ***Install***
 
@@ -22,10 +22,10 @@ Requires uv, if not installed follow https://docs.astral.sh/uv/getting-started/i
 Then in PowerShell:
 ```powershell
 # Replace version tag "v0.1.0-alpha" with desired version tag
-uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.1.0-alpha#subdirectory=akidocs-core
+uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.0-alpha#subdirectory=akidocs-core
 ```
 
-### Akidocs - 0.2.0.dev0 - UNDER DEVELOPMENT
+### Akidocs - v0.2.0-alpha / 0.2.0.dev0 - 2025-12-27
 #### What's New
 - Trying to overwrite a file that already exists now prompts for confirmation
 - New CLI flags: 
@@ -44,7 +44,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.1.0-alpha#subdirect
 - Styles now have their own module `styles.py` with dataclass from `style_base.py`
 - Styles now have configuration for edge margins and base font style
 - Standardized internal measurements to millimeters, converting to points only at boundaries where relevant
-- Total number of tests: 
+- Total number of tests: 60
 
 ### Akidocs - v0.1.0-alpha / 0.1.0a0 - 2025-12-26
 #### What's New
