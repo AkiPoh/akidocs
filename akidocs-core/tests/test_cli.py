@@ -178,3 +178,14 @@ def test_force_overrides_non_interactive(overwrite_files):
 
     assert result.returncode == 0
     assert output_file.read_bytes() != b"existing content"
+
+
+def test_cli_output_shows_style_info(tmp_path):
+    """Output should show input, style info, and output."""
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello")
+
+    result = run_cli(str(input_file), str(output_file))
+
+    assert "From test.md (Helvetica, generic) to test.pdf" in result.stdout
