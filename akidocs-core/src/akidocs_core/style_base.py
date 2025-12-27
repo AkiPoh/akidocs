@@ -1,14 +1,16 @@
 from dataclasses import dataclass
 
+MM_PER_POINT = 0.352778
+
 
 def pt_to_mm(pt: float) -> float:
     """Convert points to millimeters."""
-    return pt * 0.352778
+    return pt * MM_PER_POINT
 
 
 def mm_to_pt(mm: float) -> float:
     """Convert millimeters to points."""
-    return mm / 0.352778
+    return mm / MM_PER_POINT
 
 
 @dataclass(frozen=True)
