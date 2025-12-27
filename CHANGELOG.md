@@ -27,18 +27,21 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.1.0-alpha#subdirect
 
 ### Akidocs - 0.2.0.dev0 - UNDER DEVELOPMENT
 #### What's New
-- `-s` or `--style` to select document style, for example `--style generic`
-  - `generic` (g) — clean sans-serif, default
-  - `times` (t) — balanced serif style
-  - `regard` (r) — monospace, bold, enormous margins
 - Trying to overwrite a file that already exists now prompts for confirmation
-- `-n` or `--non-interactive` to error instead of prompting when trying to overwrite
-- `-f` or `--force` to overwrite output without prompting or erroring
+- New CLI flags: 
+  - `-n` or `--non-interactive` to error instead of prompting when trying to overwrite
+  - `-f` or `--force` to overwrite output without prompting or erroring
+  - `-s` or `--style` to select document style, for example `--style generic`
+    - `generic` (g) — clean sans-serif, default
+    - `times` (t) — balanced serif style
+    - `regard` (r) — monospace, bold, enormous margins
+- Added CHANGELOG.md for tracking version history
 
 #### What's New Internally
 - Considerable refacors throughout codebase
 - Styles now have their own module `styles.py` with dataclass from `style_base.py`
 - Styles now have configuration for edge margins and base font style
+- Standardized internal measurements to millimeters, converting to points only at boundaries where relevant
 
 ### Akidocs - v0.1.0-alpha / 0.1.0a0 - 2025-12-26
 #### What's New
@@ -47,7 +50,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.1.0-alpha#subdirect
   - `**Bold**` is **Bold**
   - `***Bold and Italic***` is ***Bold and Italic***
   - Nested styles, for example `**bold with *italic* inside**` is **bold with *italic* inside** works correctly
-- New CLI flags
+- New CLI flags:
   - `-h` or `--help` for help information
   - `-v` or `--version` for version information
   - `-o` or `--open` to open the PDF after creation
@@ -63,7 +66,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.1.0-alpha#subdirect
 - Removed installing from source from suggested installation methods in README.md, instead installing from source is now under development section
 
 #### What's New Internally
-- General internal improvements and refactoring.
+- General internal improvements and refactoring
 - Extracted style constants to the top of renderer
 - Now uses points for all styling constants instead of millimeters
 - Refactored renderer and tokenizer internals
