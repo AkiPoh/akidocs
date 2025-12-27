@@ -1,5 +1,11 @@
+import pytest
+
 from akidocs_core.renderer import render_pdf
 from akidocs_core.tokens import Bold, Header, InlineText, Italic, Paragraph
+
+BOLD = frozenset({Bold()})
+ITALIC = frozenset({Italic()})
+BOLD_ITALIC = frozenset({Bold(), Italic()})
 
 
 def assert_valid_pdf_bytes(result: bytes) -> None:
@@ -24,25 +30,13 @@ def test_render_handles_headers():
     assert_valid_pdf_bytes(result)
 
 
-def test_render_handles_italic():
+@pytest.mark.parametrize("style", [ITALIC, BOLD, BOLD_ITALIC])
+def test_render_handles_styled_text(style):
     tokens = [
         Paragraph(
             content=[
                 InlineText(content="hello "),
-                InlineText(content="world", styles=frozenset({Italic()})),
-            ]
-        )
-    ]
-    result = render_pdf(tokens)
-    assert_valid_pdf_bytes(result)
-
-
-def test_render_handles_bold():
-    tokens = [
-        Paragraph(
-            content=[
-                InlineText(content="hello "),
-                InlineText(content="world", styles=frozenset({Bold()})),
+                InlineText(content="world", styles=style),
             ]
         )
     ]
