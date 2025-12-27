@@ -49,6 +49,29 @@ def _find_closing(text: str, delim: str, start: int) -> int:
     return -1
 
 
+def _find_styled_section(
+    text: str, pos: int
+) -> tuple[str, frozenset[Style], int] | None:
+    """Find a styled section starting at pos. Returns (delim, styles, end_pos) or None."""
+    failed_opening_len = 0
+
+    for delim, styles in DELIMITERS:
+        if text[pos : pos + len(delim)] != delim:
+            continue
+
+        end = _find_closing(text, delim, pos + len(delim))
+        if end == -1:
+            failed_opening_len = max(failed_opening_len, len(delim))
+            continue
+
+        if end + len(delim) <= pos + failed_opening_len:
+            continue
+
+        return (delim, styles, end)
+
+    return None
+
+
 def tokenize_inline(
     text: str, inherited_styles: frozenset[Style] = frozenset()
 ) -> list[InlineText]:
@@ -57,42 +80,29 @@ def tokenize_inline(
     i = 0
 
     while i < len(text):
-        found_delimiter = False
-        failed_opening_len = 0
+        section = _find_styled_section(text, i)
 
-        for delim, styles in DELIMITERS:
-            if text[i : i + len(delim)] != delim:
-                continue
-
-            end = _find_closing(text, delim, i + len(delim))
-            if end == -1:
-                failed_opening_len = max(failed_opening_len, len(delim))
-                continue
-
-            # Reject if closer is within the range a longer delimiter claimed
-            if end + len(delim) <= i + failed_opening_len:
-                continue
-
-            if text_buffer:
-                tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
-                text_buffer = ""
-
-            inner_content = text[i + len(delim) : end]
-            combined_styles = inherited_styles | styles
-
-            if inner_content:
-                inner_tokens = tokenize_inline(inner_content, combined_styles)
-                tokens.extend(inner_tokens)
-            else:
-                tokens.append(InlineText(content="", styles=combined_styles))
-
-            i = end + len(delim)
-            found_delimiter = True
-            break
-
-        if not found_delimiter:
+        if section is None:
             text_buffer += text[i]
             i += 1
+            continue
+
+        delim, styles, end = section
+
+        if text_buffer:
+            tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
+            text_buffer = ""
+
+        inner_content = text[i + len(delim) : end]
+        combined_styles = inherited_styles | styles
+
+        if inner_content:
+            inner_tokens = tokenize_inline(inner_content, combined_styles)
+            tokens.extend(inner_tokens)
+        else:
+            tokens.append(InlineText(content="", styles=combined_styles))
+
+        i = end + len(delim)
 
     if text_buffer:
         tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
