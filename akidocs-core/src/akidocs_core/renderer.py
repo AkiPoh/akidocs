@@ -37,14 +37,19 @@ def _render_header(
     size_mm = style.header_font_sizes.get(level, style.base_font_size)
     size_pt = mm_to_pt(size_mm)
     line_height = size_mm * style.header_line_height_factor
-    _render_inline_tokens(pdf, content, "B", size_pt, line_height, style.font_family)
+    header_base = style.base_font_style + "B"
+    _render_inline_tokens(
+        pdf, content, header_base, size_pt, line_height, style.font_family
+    )
     pdf.ln(line_height + style.header_margin_after)
 
 
 def _render_paragraph(pdf: FPDF, content: list[InlineText], style: Style) -> None:
     size_pt = mm_to_pt(style.base_font_size)
     line_height = style.base_font_size * style.paragraph_line_height_factor
-    _render_inline_tokens(pdf, content, "", size_pt, line_height, style.font_family)
+    _render_inline_tokens(
+        pdf, content, style.base_font_style, size_pt, line_height, style.font_family
+    )
     pdf.ln(line_height + style.paragraph_margin_after)
 
 

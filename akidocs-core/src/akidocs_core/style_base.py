@@ -16,6 +16,7 @@ class Style:
     """Document style configuration. All dimensions in millimeters."""
 
     font_family: str
+    base_font_style: str  # "", "B", "I", or "BI"
     base_font_size: float
     header_font_sizes: dict[int, float]
     header_line_height_factor: float

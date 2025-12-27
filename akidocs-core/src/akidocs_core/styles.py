@@ -4,6 +4,7 @@ pt = pt_to_mm
 
 GENERIC = Style(
     font_family="Times",
+    base_font_style="",  # "", "B", "I", or "BI"
     base_font_size=pt(12),
     header_font_sizes={
         1: pt(24),
@@ -17,14 +18,15 @@ GENERIC = Style(
     paragraph_line_height_factor=1.4,
     header_margin_after=pt(8),
     paragraph_margin_after=pt(4),
-    page_margin_top=25.4,
-    page_margin_right=25.4,
-    page_margin_bottom=25.4,
-    page_margin_left=25.4,
+    page_margin_top=20.0,
+    page_margin_right=25.0,
+    page_margin_bottom=20.0,
+    page_margin_left=25.0,
 )
 
 MODERN = Style(
     font_family="Helvetica",
+    base_font_style="",
     base_font_size=pt(11),
     header_font_sizes={
         1: pt(28),
@@ -45,7 +47,8 @@ MODERN = Style(
 )
 
 REGARD = Style(
-    font_family="Helvetica",
+    font_family="Courier",
+    base_font_style="B",
     base_font_size=pt(12),
     header_font_sizes={
         1: pt(14),
