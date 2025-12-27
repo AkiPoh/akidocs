@@ -46,7 +46,9 @@ output_path.write_bytes(pdf_bytes)
 
 The internal flow goes something like this: read the markdown, tokenize it into blocks (like headings and paragraphs), then tokenize the raw text within those blocks to inline tokens (like normal text, bold and italic), then render it with the selected style to PDF with fpdf2, and finally write to disk.
 
-Development is TDD-based - see [tests/](./akidocs-core/tests) for how features are specified and verified.
+Development is test-driven development (TDD) based - see [tests/](./akidocs-core/tests) for how features are specified and verified.
+
+Version history is tracked in [GitHub Releases](https://github.com/AkiPoh/akidocs/releases) (primary) and [CHANGELOG.md](./CHANGELOG.md) (secondary).
 
 ## Prerequisites
 **Requires uv**, if not installed follow https://docs.astral.sh/uv/getting-started/installation/. In the following steps uv will automatically install the correct version of Python; you do not need to install Python manually.
