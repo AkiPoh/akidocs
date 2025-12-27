@@ -3,6 +3,8 @@ import subprocess
 from importlib.metadata import version
 from pathlib import Path
 
+import pytest
+
 
 def test_cli_produces_pdf(tmp_path):
     input_file = tmp_path / "test.md"
@@ -122,7 +124,20 @@ def test_cli_open_short_flag(tmp_path):
     assert "open" in result.stdout.lower()
 
 
-def test_cli_style_long_flag(tmp_path):
+@pytest.mark.parametrize(
+    "flag,style",
+    [
+        ("--style", "generic"),
+        ("--style", "g"),
+        ("-s", "generic"),
+        ("-s", "g"),
+        ("--style", "modern"),
+        ("--style", "m"),
+        ("--style", "regard"),
+        ("--style", "r"),
+    ],
+)
+def test_cli_style(tmp_path, flag, style):
     input_file = tmp_path / "test.md"
     output_file = tmp_path / "test.pdf"
     input_file.write_text("# Hello\n\nWorld")
@@ -136,183 +151,8 @@ def test_cli_style_long_flag(tmp_path):
             "akidocs_core",
             str(input_file),
             str(output_file),
-            "--style",
-            "generic",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_short_flag(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-s",
-            "generic",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_long_flag_alias(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "--style",
-            "g",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_short_flag_alias(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-s",
-            "g",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_modern(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-s",
-            "modern",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_modern_alias(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-s",
-            "m",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_regard(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-s",
-            "regard",
-        ],
-        capture_output=True,
-        text=True,
-    )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-
-
-def test_cli_style_regard_alias(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = subprocess.run(
-        [
-            "uv",
-            "run",
-            "python",
-            "-m",
-            "akidocs_core",
-            str(input_file),
-            str(output_file),
-            "-s",
-            "r",
+            flag,
+            style,
         ],
         capture_output=True,
         text=True,
