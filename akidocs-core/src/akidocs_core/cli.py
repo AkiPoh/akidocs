@@ -36,6 +36,12 @@ def main():
         choices=list(STYLES.keys()),
         help="Document style (default: generic)",
     )
+    parser.add_argument(
+        "-n",
+        "--non-interactive",
+        action="store_true",
+        help="Never prompt; error if output file exists",
+    )
     parser.add_argument("input", help="Input Markdown file")
     parser.add_argument("output", help="Output PDF file")
 
@@ -47,6 +53,16 @@ def main():
     if not input_path.exists():
         print(f"Error: File not found: {input_path}")
         sys.exit(1)
+
+    if output_path.exists():
+        if args.non_interactive:
+            print(f"Error: {output_path} already exists")
+            sys.exit(1)
+        else:
+            response = input(f"{output_path} already exists. Overwrite? [y/N] ")
+            if response.lower() != "y":
+                print(f"Aborted: {output_path} already exists")
+                sys.exit(1)
 
     style = STYLES[args.style]
 
