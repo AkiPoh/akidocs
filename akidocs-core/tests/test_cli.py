@@ -62,38 +62,20 @@ def test_cli_help_short_flag():
 
 
 def test_cli_open_long_flag(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = run_cli(
-        str(input_file),
-        str(output_file),
+    result = run_cli_with_files(
+        tmp_path,
         "--open",
         env={**os.environ, "AKIDOCS_TEST_MODE": "1"},
     )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-    assert output_file.stat().st_size > 0
     assert "open" in result.stdout.lower()
 
 
 def test_cli_open_short_flag(tmp_path):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = run_cli(
-        str(input_file),
-        str(output_file),
+    result = run_cli_with_files(
+        tmp_path,
         "-o",
         env={**os.environ, "AKIDOCS_TEST_MODE": "1"},
     )
-
-    assert result.returncode == 0
-    assert output_file.exists()
-    assert output_file.stat().st_size > 0
     assert "open" in result.stdout.lower()
 
 
@@ -111,11 +93,4 @@ def test_cli_open_short_flag(tmp_path):
     ],
 )
 def test_cli_style(tmp_path, flag, style):
-    input_file = tmp_path / "test.md"
-    output_file = tmp_path / "test.pdf"
-    input_file.write_text("# Hello\n\nWorld")
-
-    result = run_cli(str(input_file), str(output_file), flag, style)
-
-    assert result.returncode == 0
-    assert output_file.exists()
+    run_cli_with_files(tmp_path, flag, style)
