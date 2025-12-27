@@ -36,9 +36,28 @@ MODERN = Style(
     paragraph_margin_after=pt(8),
 )
 
+REGARD = Style(
+    font_family="Courier",
+    base_font_size=pt(12),
+    header_font_sizes={
+        1: pt(14),
+        2: pt(13),
+        3: pt(12),
+        4: pt(12),
+        5: pt(12),
+        6: pt(12),
+    },
+    header_line_height_factor=1.8,
+    paragraph_line_height_factor=2.0,
+    header_margin_after=pt(16),
+    paragraph_margin_after=pt(16),
+)
+
 STYLES = {
     "generic": GENERIC,
     "g": GENERIC,
     "modern": MODERN,
     "m": MODERN,
+    "regard": REGARD,
+    "r": REGARD,
 }

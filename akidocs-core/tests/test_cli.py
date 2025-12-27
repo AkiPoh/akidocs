@@ -272,7 +272,7 @@ def test_cli_style_modern_alias(tmp_path):
     assert output_file.exists()
 
 
-def test_cli_style_fancy(tmp_path):
+def test_cli_style_regard(tmp_path):
     input_file = tmp_path / "test.md"
     output_file = tmp_path / "test.pdf"
     input_file.write_text("# Hello\n\nWorld")
@@ -287,7 +287,7 @@ def test_cli_style_fancy(tmp_path):
             str(input_file),
             str(output_file),
             "-s",
-            "fancy",
+            "regard",
         ],
         capture_output=True,
         text=True,
@@ -297,7 +297,7 @@ def test_cli_style_fancy(tmp_path):
     assert output_file.exists()
 
 
-def test_cli_style_fancy_alias(tmp_path):
+def test_cli_style_regard_alias(tmp_path):
     input_file = tmp_path / "test.md"
     output_file = tmp_path / "test.pdf"
     input_file.write_text("# Hello\n\nWorld")
@@ -312,7 +312,7 @@ def test_cli_style_fancy_alias(tmp_path):
             str(input_file),
             str(output_file),
             "-s",
-            "f",
+            "r",
         ],
         capture_output=True,
         text=True,
