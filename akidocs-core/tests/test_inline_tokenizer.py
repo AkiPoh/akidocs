@@ -38,8 +38,8 @@ def test_text_then_bold():
 
 
 def test_bold_italic():
-    result = tokenize_inline("***hello***")
-    assert result == [InlineText(content="hello", styles=BOLD_ITALIC)]
+    result = tokenize_inline("***bold italic***")
+    assert result == [InlineText(content="bold italic", styles=BOLD_ITALIC)]
 
 
 def test_bold_containing_italic():
@@ -76,11 +76,3 @@ def test_unclosed_bold():
 def test_empty_bold():
     result = tokenize_inline("****")
     assert result == [InlineText(content="", styles=frozenset({Bold()}))]
-
-
-def test_triple_nested():
-    result = tokenize_inline("***bold italic***")
-    assert len(result) == 1
-    assert result[0].content == "bold italic"
-    assert Bold() in result[0].styles
-    assert Italic() in result[0].styles
