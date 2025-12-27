@@ -161,6 +161,7 @@ def test_force_overwrites_without_prompt(overwrite_files):
 
 
 def test_force_short_flag(overwrite_files):
+    """Short flag -f should work same as --force."""
     input_file, output_file = overwrite_files
 
     result = run_cli(str(input_file), str(output_file), "-f")
