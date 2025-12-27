@@ -3,6 +3,7 @@ from akidocs_core.style_base import Style, pt_to_mm
 pt = pt_to_mm
 
 GENERIC = Style(
+    name="generic",
     font_family="Helvetica",
     base_font_style="",  # "", "B", "I", or "BI"
     base_font_size=pt(11),
@@ -25,6 +26,7 @@ GENERIC = Style(
 )
 
 TIMES = Style(
+    name="times",
     font_family="Times",
     base_font_style="",
     base_font_size=pt(12),
@@ -47,6 +49,7 @@ TIMES = Style(
 )
 
 REGARD = Style(
+    name="regard",
     font_family="Courier",
     base_font_style="B",
     base_font_size=pt(12),

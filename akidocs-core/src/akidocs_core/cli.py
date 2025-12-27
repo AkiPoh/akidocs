@@ -78,7 +78,7 @@ def main():
     output_path.write_bytes(pdf_bytes)
 
     print(
-        f"From {input_path.name} ({style.font_family}, {args.style}) to {output_path.name}"
+        f"From {input_path.name} ({style.font_family}, {style.name}) to {output_path.name}"
     )
     if args.open:
         print(f"Opening {output_path}")

@@ -17,6 +17,7 @@ def mm_to_pt(mm: float) -> float:
 class Style:
     """Document style configuration. All dimensions in millimeters."""
 
+    name: str
     font_family: str
     base_font_style: str  # "", "B", "I", or "BI"
     base_font_size: float
