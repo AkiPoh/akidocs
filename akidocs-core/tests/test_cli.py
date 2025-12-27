@@ -123,7 +123,7 @@ def test_overwrite_prompt_accept(overwrite_files):
     result = run_cli(str(input_file), str(output_file), input="y\n")
 
     assert result.returncode == 0
-    assert "[y/n]" in result.stdout.lower()
+    assert "[y/N]" in result.stdout
     assert output_file.read_bytes() != b"existing content"
 
 
