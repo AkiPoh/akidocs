@@ -1,6 +1,10 @@
 from akidocs_core.inline_tokenizer import tokenize_inline
 from akidocs_core.tokens import Bold, InlineText, Italic
 
+BOLD = frozenset({Bold()})
+ITALIC = frozenset({Italic()})
+BOLD_ITALIC = frozenset({Bold(), Italic()})
+
 
 def test_plain_text():
     result = tokenize_inline("hello world")
@@ -22,7 +26,7 @@ def test_text_then_italic():
 
 def test_bold_only():
     result = tokenize_inline("**hello**")
-    assert result == [InlineText(content="hello", styles=frozenset({Bold()}))]
+    assert result == [InlineText(content="hello", styles=BOLD)]
 
 
 def test_text_then_bold():
