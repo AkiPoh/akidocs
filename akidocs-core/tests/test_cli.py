@@ -93,3 +93,111 @@ def test_cli_open_short_flag(tmp_path):
 )
 def test_cli_style(tmp_path, flag, style):
     run_cli_with_files(tmp_path, flag, style)
+
+
+def test_overwrite_prompt_decline(tmp_path):
+    """Declining overwrite prompt should exit with error."""
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello")
+    output_file.write_text("existing content")
+    original_content = output_file.read_bytes()
+
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "akidocs_core",
+            str(input_file),
+            str(output_file),
+        ],
+        capture_output=True,
+        text=True,
+        input="n\n",
+    )
+
+    assert result.returncode != 0
+    assert output_file.read_bytes() == original_content  # unchanged
+
+
+def test_overwrite_prompt_accept(tmp_path):
+    """Accepting overwrite prompt should proceed."""
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello")
+    output_file.write_text("existing content")
+
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "akidocs_core",
+            str(input_file),
+            str(output_file),
+        ],
+        capture_output=True,
+        text=True,
+        input="y\n",
+    )
+
+    assert result.returncode == 0
+    assert "[y/n]" in result.stdout.lower()  # prompt format
+    assert output_file.read_bytes() != b"existing content"
+
+
+def test_non_interactive_errors_on_existing_file(tmp_path):
+    """--non-interactive should error instead of prompting."""
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello")
+    output_file.write_text("existing content")
+    original_content = output_file.read_bytes()
+
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "akidocs_core",
+            str(input_file),
+            str(output_file),
+            "--non-interactive",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode != 0
+    assert "exists" in result.stdout.lower() or "exists" in result.stderr.lower()
+    assert output_file.read_bytes() == original_content
+
+
+def test_non_interactive_short_flag(tmp_path):
+    """Short flag -n should work same as --non-interactive."""
+    input_file = tmp_path / "test.md"
+    output_file = tmp_path / "test.pdf"
+    input_file.write_text("# Hello")
+    output_file.write_text("existing content")
+
+    result = subprocess.run(
+        [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "akidocs_core",
+            str(input_file),
+            str(output_file),
+            "-n",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode != 0
+    assert "exists" in result.stdout.lower() or "exists" in result.stderr.lower()
