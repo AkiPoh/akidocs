@@ -27,6 +27,9 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.0-alpha#subdirect
 
 ### Akidocs - 0.2.1.dev0 - UNDER DEVELOPMENT
 #### What's New
+- Adopted feature branch workflow with squash merging to main, ensuring that the main branch stays cleaner and always functional
+- Added DEVELOPMENT.md documenting the new Git/GitHub workflow
+
 #### What's New Internally
 
 ### Akidocs - v0.2.0-alpha / 0.2.0a0 - 2025-12-27

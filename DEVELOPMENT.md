@@ -44,6 +44,7 @@ Branch naming — prefix by type, describe briefly:
 - `fix/` — bug fixes (`fix/empty-paragraph-crash`)
 - `refactor/` — internal changes (`refactor/extract-tokenizer`)
 - `docs/` — documentation (`docs/development-guide`)
+- `chore/` — tasks not covered above (`chore/bump-0.2.1.dev0`)
 
 ### Working on a Branch
 ```bash
