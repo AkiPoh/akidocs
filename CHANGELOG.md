@@ -21,9 +21,13 @@ Requires uv, if not installed follow https://docs.astral.sh/uv/getting-started/i
 
 Then in PowerShell:
 ```powershell
-# Replace version tag "v0.1.0-alpha" with desired version tag
+# Replace version tag "v0.2.0-alpha" with desired version tag
 uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.0-alpha#subdirectory=akidocs-core
 ```
+
+### Akidocs - 0.2.1.dev0 - UNDER DEVELOPMENT
+#### What's New
+#### What's New Internally
 
 ### Akidocs - v0.2.0-alpha / 0.2.0a0 - 2025-12-27
 #### What's New
