@@ -11,9 +11,9 @@ Early development release. Not yet usable for serious work. ⚠️
 
 Currently functional on *Windows 11 via PowerShell,* all instructions for PowerShell if not otherwise specified. Other platforms remain untested.
 
-See https://github.com/AkiPoh/akidocs/tree/v0.2.0-alpha for specific version's documentation. Replace version tag with right one.
+See https://github.com/AkiPoh/akidocs/tree/v0.2.1-alpha for specific version's documentation. Replace version tag with right one.
 
-Full Changelog: [https://github.com/AkiPoh/akidocs/compare/v0.1.0-alpha...v0.2.0-alpha](https://github.com/AkiPoh/akidocs/compare/v0.1.0-alpha...v0.2.0-alpha). Replace version tags with desired ones.
+Full Changelog: [https://github.com/AkiPoh/akidocs/compare/v0.2.0-alpha...v0.2.1-alpha](https://github.com/AkiPoh/akidocs/compare/v0.2.0-alpha...v0.2.1-alpha). Replace version tags with desired ones.
 
 ***Install***
 
@@ -21,14 +21,15 @@ Requires uv, if not installed follow https://docs.astral.sh/uv/getting-started/i
 
 Then in PowerShell:
 ```powershell
-# Replace version tag "v0.2.0-alpha" with desired version tag
-uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.0-alpha#subdirectory=akidocs-core
+# Replace version tag "v0.2.1-alpha" with desired version tag
+uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirectory=akidocs-core
 ```
 
-### Akidocs - 0.2.1.dev0 - UNDER DEVELOPMENT
+### Akidocs - v0.2.1-alpha / 0.2.1a0 - 2025-12-28
 #### What's New
 - Adopted feature branch workflow with squash merging to main, ensuring that the main branch stays cleaner and always functional
 - Added DEVELOPMENT.md documenting the new Git/GitHub workflow
+- Added branch protection to main branch
 
 #### What's New Internally
 - Renamed `base_font_style` to `paragraph_base_font_style` and added `header_base_font_style` for independent control
