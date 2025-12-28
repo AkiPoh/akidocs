@@ -48,6 +48,8 @@ The internal flow goes something like this: read the markdown, tokenize it into 
 
 Development is test-driven development (TDD) based - see [tests/](./akidocs-core/tests) for how features are specified and verified.
 
+Git/GitHub workflow for this project is documented in [DEVELOPMENT.md](./DEVELOPMENT.md).
+
 Version history is tracked in [GitHub Releases](https://github.com/AkiPoh/akidocs/releases) (primary) and [CHANGELOG.md](./CHANGELOG.md) (secondary).
 
 ## Prerequisites
