@@ -5,8 +5,8 @@ pt = pt_to_mm
 GENERIC = Style(
     name="generic",
     font_family="Helvetica",
-    paragraph_base_font_style="",  # "", "B", "I", or "BI"
-    header_base_font_style="B",
+    header_base_font_style="B",  # "", "B", "I", or "BI"
+    paragraph_base_font_style="",
     base_font_size=pt(11),
     header_font_sizes={
         1: pt(28),
@@ -29,8 +29,8 @@ GENERIC = Style(
 TIMES = Style(
     name="times",
     font_family="Times",
-    paragraph_base_font_style="",
     header_base_font_style="B",
+    paragraph_base_font_style="",
     base_font_size=pt(12),
     header_font_sizes={
         1: pt(24),
@@ -53,8 +53,8 @@ TIMES = Style(
 REGARD = Style(
     name="regard",
     font_family="Courier",
-    paragraph_base_font_style="B",
     header_base_font_style="B",
+    paragraph_base_font_style="B",
     base_font_size=pt(12),
     header_font_sizes={
         1: pt(14),

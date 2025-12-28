@@ -31,6 +31,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.0-alpha#subdirect
 - Added DEVELOPMENT.md documenting the new Git/GitHub workflow
 
 #### What's New Internally
+- Renamed `base_font_style` to `paragraph_base_font_style` and added `header_base_font_style` for independent control
 
 ### Akidocs - v0.2.0-alpha / 0.2.0a0 - 2025-12-27
 #### What's New
