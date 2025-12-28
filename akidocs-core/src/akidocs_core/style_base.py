@@ -19,8 +19,8 @@ class Style:
 
     name: str
     font_family: str
-    paragraph_base_font_style: str  # "", "B", "I", or "BI"
-    header_base_font_style: str
+    header_base_font_style: str  # "", "B", "I", or "BI"
+    paragraph_base_font_style: str
     base_font_size: float
     header_font_sizes: dict[int, float]
     header_line_height_factor: float
