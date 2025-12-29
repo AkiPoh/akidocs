@@ -12,7 +12,7 @@ def try_parse_header(block: str) -> Header | None:
     if level > 6:
         return None
 
-    if stripped != "" and not stripped.startswith(" "):
+    if stripped != "" and stripped[0] not in (" ", "\t"):
         return None
 
     return Header(level=level, content=tokenize_inline(stripped.strip()))
