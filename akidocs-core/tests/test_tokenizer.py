@@ -104,3 +104,11 @@ def test_paragraph_with_italic():
         InlineText(content="hello "),
         InlineText(content="world", styles=ITALIC),
     ]
+
+
+def test_header_with_tab_separator():
+    result = tokenize("#\tHello")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 1
+    assert result[0].content == [InlineText(content="Hello")]
