@@ -25,6 +25,10 @@ Then in PowerShell:
 uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirectory=akidocs-core
 ```
 
+### Akidocs - 0.3.0.dev0 - UNDER DEVELOPMENT
+#### What's New
+#### What's New Internally
+
 ### Akidocs - v0.2.1-alpha / 0.2.1a0 - 2025-12-28
 #### What's New
 - Adopted feature branch workflow with squash merging to main, ensuring that the main branch stays cleaner and always functional
