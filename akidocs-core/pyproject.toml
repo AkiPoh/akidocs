@@ -1,6 +1,6 @@
 [project]
 name = "akidocs-core"
-version = "0.2.1a0"
+version = "0.3.0.dev0"
 description = "Markdown to PDF converter"
 requires-python = ">=3.14"
 dependencies = [

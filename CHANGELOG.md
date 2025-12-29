@@ -25,6 +25,11 @@ Then in PowerShell:
 uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirectory=akidocs-core
 ```
 
+### Akidocs - 0.3.0.dev0 - UNDER DEVELOPMENT
+#### What's New
+#### What's New Internally
+- Total number of tests: ADD BEFORE RELEASE
+
 ### Akidocs - v0.2.1-alpha / 0.2.1a0 - 2025-12-28
 #### What's New
 - Adopted feature branch workflow with squash merging to main, ensuring that the main branch stays cleaner and always functional
@@ -33,6 +38,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 
 #### What's New Internally
 - Renamed `base_font_style` to `paragraph_base_font_style` and added `header_base_font_style` for independent control
+- Total number of tests: 60
 
 ### Akidocs - v0.2.0-alpha / 0.2.0a0 - 2025-12-27
 #### What's New
