@@ -112,3 +112,11 @@ def test_header_with_tab_separator():
     assert isinstance(result[0], Header)
     assert result[0].level == 1
     assert result[0].content == [InlineText(content="Hello")]
+
+
+def test_header_with_mixed_whitespace_separator():
+    result = tokenize("##   \t\t   \t\t   Mixed")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 2
+    assert result[0].content == [InlineText(content="Mixed")]
