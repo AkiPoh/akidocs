@@ -27,6 +27,8 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 
 ### Akidocs - 0.3.0.dev0 - UNDER DEVELOPMENT
 #### What's New
+- Tab character now accepted as separator after `#` in ATX headers (`#\tTitle` works)
+
 #### What's New Internally
 - Total number of tests: ADD BEFORE RELEASE
 
