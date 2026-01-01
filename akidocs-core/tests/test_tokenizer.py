@@ -120,3 +120,11 @@ def test_header_with_mixed_whitespace_separator():
     assert isinstance(result[0], Header)
     assert result[0].level == 2
     assert result[0].content == [InlineText(content="Mixed")]
+
+
+def test_header_with_pound_signs():
+    result = tokenize("#### #Header# ## # # Continues##")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 4
+    assert result[0].content == [InlineText(content="#Header# ## # # Continues##")]
