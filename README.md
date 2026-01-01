@@ -9,7 +9,7 @@ Currently functional on **Windows 11 via PowerShell,** all instructions for Powe
 Takes in a Markdown file, parses it, and outputs it as a PDF
 
 - Headers (levels 1-6)
-  - Trailing `#` characters in ATX headers (`## Header ##`)
+  - Trims optional `#` character sequence in ATX headers (`## Header ##`)
 - Paragraphs
 - Inline formatting
   - `*Italics*` is *Italics*
