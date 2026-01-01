@@ -6,7 +6,7 @@ One might wonder why we have a test Markdown file **here** at akidocs-core and a
 
 *Another paragraph here. 2*
 
-## **Third heading 2**
+## **Third heading 2**  #####
 
 ## Composable styles test
 
