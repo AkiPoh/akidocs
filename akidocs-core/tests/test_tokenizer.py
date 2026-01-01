@@ -144,3 +144,11 @@ def test_header_trailing_pound_signs_trimmed_tab():
     assert isinstance(result[0], Header)
     assert result[0].level == 6
     assert result[0].content == [InlineText(content="Header# ##")]
+
+
+def test_header_empty_content_trailing_pound_signs():
+    result = tokenize("### ####")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 3
+    assert result[0].content == []
