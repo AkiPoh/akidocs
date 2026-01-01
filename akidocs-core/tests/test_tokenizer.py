@@ -128,3 +128,19 @@ def test_header_with_pound_signs():
     assert isinstance(result[0], Header)
     assert result[0].level == 4
     assert result[0].content == [InlineText(content="#Header# ## # # Continues##")]
+
+
+def test_header_trailing_pound_signs_trimmed():
+    result = tokenize("###### Header# ##  ###")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 6
+    assert result[0].content == [InlineText(content="Header# ##")]
+
+
+def test_header_trailing_pound_signs_trimmed_tab():
+    result = tokenize("###### Header# ##\t\t###")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 6
+    assert result[0].content == [InlineText(content="Header# ##")]
