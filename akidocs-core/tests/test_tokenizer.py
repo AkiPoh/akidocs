@@ -115,7 +115,7 @@ def test_header_with_tab_separator():
 
 
 def test_header_with_mixed_whitespace_separator():
-    result = tokenize("##   \t\t   \t\t   Mixed")
+    result = tokenize("##   \t\t   \t\t   Mixed   ")
     assert len(result) == 1
     assert isinstance(result[0], Header)
     assert result[0].level == 2
@@ -139,7 +139,7 @@ def test_header_trailing_pound_signs_trimmed():
 
 
 def test_header_trailing_pound_signs_trimmed_tab():
-    result = tokenize("###### Header# ##\t\t###")
+    result = tokenize("###### Header# ##\t\t###    ")
     assert len(result) == 1
     assert isinstance(result[0], Header)
     assert result[0].level == 6
@@ -147,7 +147,7 @@ def test_header_trailing_pound_signs_trimmed_tab():
 
 
 def test_header_empty_content_trailing_pound_signs():
-    result = tokenize("### ####")
+    result = tokenize("### ####  ")
     assert len(result) == 1
     assert isinstance(result[0], Header)
     assert result[0].level == 3
