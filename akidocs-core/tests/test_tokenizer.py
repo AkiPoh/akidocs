@@ -139,7 +139,7 @@ def test_header_trailing_pound_signs_trimmed():
 
 
 def test_header_trailing_pound_signs_trimmed_tab():
-    result = tokenize("###### Header# ##\t\t###    ")
+    result = tokenize("###### Header# ##\t\t###  \t  \t")
     assert len(result) == 1
     assert isinstance(result[0], Header)
     assert result[0].level == 6
