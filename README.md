@@ -5,6 +5,9 @@ Akidocs converts Markdown files to PDF. Part of a larger personal project with t
 
 Currently functional on **Windows 11 via PowerShell,** all instructions for PowerShell if not otherwise specified. Other platforms remain untested.
 
+## License
+This project is licensed under the permissive open-source license *Apache 2.0*. Please see [./LICENSE.txt](./LICENSE.txt) for full license.
+
 ## Current Features
 Takes in a Markdown file, parses it, and outputs it as a PDF
 
