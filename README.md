@@ -112,9 +112,9 @@ uv sync
 # Install package in editable mode
 uv pip install -e .
 # Run tests (-v for showing individual test results)
-uv run python -m pytest -v
+uv run pytest -v
 # Output test PDF and open it
-uv run python -m akidocs_core test.md output.pdf -o
+uv run akidocs_core test.md output.pdf -o
 ```
 
 **Installing globally and testing build**
