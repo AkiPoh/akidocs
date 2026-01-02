@@ -70,7 +70,7 @@ Review the diff in the GitHub PR view. This shows exactly what will reach main.
 Before merging, tests must pass locally:
 ```bash
 cd ./akidocs-core
-uv run python -m pytest -v
+uv run pytest -v
 ```
 
 Main must pass before squash merging.
