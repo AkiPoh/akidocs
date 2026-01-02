@@ -2,6 +2,7 @@
 name = "akidocs-core"
 version = "0.3.0.dev0"
 description = "Markdown to PDF converter"
+license = "Apache-2.0"
 requires-python = ">=3.14"
 dependencies = [
     "fpdf2>=2.8.5",
