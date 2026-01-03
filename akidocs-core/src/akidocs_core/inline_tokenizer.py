@@ -77,14 +77,14 @@ def tokenize_inline(
 ) -> list[InlineText]:
     tokens: list[InlineText] = []
     text_buffer = ""
-    i = 0
+    pos = 0
 
-    while i < len(text):
-        section = _find_styled_section(text, i)
+    while pos < len(text):
+        section = _find_styled_section(text, pos)
 
         if section is None:
-            text_buffer += text[i]
-            i += 1
+            text_buffer += text[pos]
+            pos += 1
             continue
 
         delim, styles, end = section
@@ -93,7 +93,7 @@ def tokenize_inline(
             tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
             text_buffer = ""
 
-        inner_content = text[i + len(delim) : end]
+        inner_content = text[pos + len(delim) : end]
         combined_styles = inherited_styles | styles
 
         if inner_content:
@@ -102,7 +102,7 @@ def tokenize_inline(
         else:
             tokens.append(InlineText(content="", styles=combined_styles))
 
-        i = end + len(delim)
+        pos = end + len(delim)
 
     if text_buffer:
         tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
