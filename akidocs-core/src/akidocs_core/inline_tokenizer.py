@@ -75,36 +75,47 @@ def _find_styled_section(
 def tokenize_inline(
     text: str, inherited_styles: frozenset[InlineStyles] = frozenset()
 ) -> list[InlineText]:
-    tokens: list[InlineText] = []
+    inline_tokens: list[InlineText] = []
     text_buffer = ""
     pos = 0
 
     while pos < len(text):
         section = _find_styled_section(text, pos)
 
+        # No match for style in section
         if section is None:
             text_buffer += text[pos]
             pos += 1
             continue
 
+        # Styled section was found, unpack section
         delim, styles, end = section
 
+        # Add accumulated text buffer to inline_tokens, and flush text buffer
         if text_buffer:
-            tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
+            inline_tokens.append(
+                InlineText(content=text_buffer, styles=inherited_styles)
+            )
             text_buffer = ""
 
+        # Extract content between delimiters
         inner_content = text[pos + len(delim) : end]
+        # Combine new styles and inherited styles
         combined_styles = inherited_styles | styles
 
+        # Recursive call, to parse inner content for nested styles
         if inner_content:
-            inner_tokens = tokenize_inline(inner_content, combined_styles)
-            tokens.extend(inner_tokens)
+            inner_inline_tokens = tokenize_inline(inner_content, combined_styles)
+            inline_tokens.extend(inner_inline_tokens)
+        # If section is empty, emit empty token with the styles
         else:
-            tokens.append(InlineText(content="", styles=combined_styles))
+            inline_tokens.append(InlineText(content="", styles=combined_styles))
 
+        # Move position past closing delimiter
         pos = end + len(delim)
 
+    # After loop, add accumulated text buffer to inline_tokens, and flush text buffer
     if text_buffer:
-        tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
+        inline_tokens.append(InlineText(content=text_buffer, styles=inherited_styles))
 
-    return tokens
+    return inline_tokens
