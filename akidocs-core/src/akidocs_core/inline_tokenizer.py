@@ -22,16 +22,21 @@ def _claimed_by_longer(text: str, provided_delim: str, pos: int) -> bool:
     return False
 
 
-def _skip_nested_at(text: str, delim: str, pos: int) -> int | None:
-    """If a different delimiter opens here and closes, return position after it."""
+def _skip_nested_at(text: str, provided_delim: str, pos: int) -> int | None:
+    """When searching for closing delimiter, skip over nested sections that use different delimiter."""
     for check_delim, _ in DELIMITERS:
-        if check_delim == delim:
+        # If check_delim is provided_delim, then skip
+        if check_delim == provided_delim:
             continue
+        # If no match found for check_delim, then skip
         if text[pos : pos + len(check_delim)] != check_delim:
             continue
+        # If this delimiter has a valid closer, recursive
         close = _find_closing(text, check_delim, pos + len(check_delim))
         if close != -1:
+            # Then return position after closing delimiter
             return close + len(check_delim)
+    # No valid nested section found to be starting at current position
     return None
 
 
