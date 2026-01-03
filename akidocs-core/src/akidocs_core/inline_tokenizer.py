@@ -32,19 +32,22 @@ def _skip_nested_at(text: str, delim: str, pos: int) -> int | None:
     return None
 
 
-def _find_closing(text: str, delim: str, start: int) -> int:
-    """Find closing delimiter, skipping nested sections."""
-    i = start
-    while i < len(text):
-        if text[i : i + len(delim)] == delim:
-            if not _claimed_by_longer(text, delim, i):
-                return i
+def _find_closing(text: str, delim: str, content_start_pos: int) -> int:
+    """Find closing delimiter's starting position, skipping nested sections."""
+    current_pos = content_start_pos
+    while current_pos < len(text):
+        # If found potential closing delimiter
+        if text[current_pos : current_pos + len(delim)] == delim:
+            # If not claimed by longer
+            if not _claimed_by_longer(text, delim, current_pos):
+                return current_pos
 
-        skipped_to = _skip_nested_at(text, delim, i)
-        if skipped_to is not None:
-            i = skipped_to
+        # Check if different delimiter opens and closes at this position
+        skip_to_pos = _skip_nested_at(text, delim, current_pos)
+        if skip_to_pos is not None:
+            current_pos = skip_to_pos
         else:
-            i += 1
+            current_pos += 1
 
     return -1
 
