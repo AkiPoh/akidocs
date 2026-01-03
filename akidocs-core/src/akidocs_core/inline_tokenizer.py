@@ -52,22 +52,30 @@ def _find_closing(text: str, delim: str, start: int) -> int:
 def _find_styled_section(
     text: str, pos: int
 ) -> tuple[str, frozenset[InlineStyles], int] | None:
-    """Find a styled section starting at pos. Returns (delim, styles, end_pos) or None."""
-    failed_opening_len = 0
+    """Find a styled section that STARTS at pos. Returns (delim, inline_styles, end_pos) or None."""
+    # Longest delimiter that opened, but failed to close
+    longest_failed_opener_len = 0
 
-    for delim, styles in DELIMITERS:
+    # Iterate in correct order, as specified by DELIMITERS
+    for delim, inline_styles in DELIMITERS:
+        # If current delimiter, does not find match at current position
         if text[pos : pos + len(delim)] != delim:
             continue
 
-        end = _find_closing(text, delim, pos + len(delim))
-        if end == -1:
-            failed_opening_len = max(failed_opening_len, len(delim))
+        # Search for matching closer delimiter
+        content_end_pos = _find_closing(text, delim, pos + len(delim))
+        # If none found, record as failed, if longer than previous failed
+        if content_end_pos == -1:
+            longest_failed_opener_len = max(longest_failed_opener_len, len(delim))
             continue
 
-        if end + len(delim) <= pos + failed_opening_len:
-            continue
+        # Closer falls within longest failed opener
+        # Prevents ** from parsing as italic that wraps nothing
+        if longest_failed_opener_len:
+            if content_end_pos < pos + longest_failed_opener_len:
+                continue
 
-        return (delim, styles, end)
+        return delim, inline_styles, content_end_pos
 
     return None
 
@@ -89,7 +97,7 @@ def tokenize_inline(
             continue
 
         # Styled section was found, unpack section
-        delim, styles, end = section
+        delim, styles, content_end_pos = section
 
         # Add accumulated text buffer to inline_tokens, and flush text buffer
         if text_buffer:
@@ -99,7 +107,7 @@ def tokenize_inline(
             text_buffer = ""
 
         # Extract content between delimiters
-        inner_content = text[pos + len(delim) : end]
+        inner_content = text[pos + len(delim) : content_end_pos]
         # Combine new styles and inherited styles
         combined_styles = inherited_styles | styles
 
@@ -112,7 +120,7 @@ def tokenize_inline(
             inline_tokens.append(InlineText(content="", styles=combined_styles))
 
         # Move position past closing delimiter
-        pos = end + len(delim)
+        pos = content_end_pos + len(delim)
 
     # After loop, add accumulated text buffer to inline_tokens, and flush text buffer
     if text_buffer:
