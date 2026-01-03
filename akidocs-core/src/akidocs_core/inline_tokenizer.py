@@ -82,9 +82,8 @@ def _find_styled_section(
 
         # Closer falls within longest failed opener
         # Prevents ** from parsing as italic that wraps nothing
-        if longest_failed_opener_len:
-            if content_end_pos < pos + longest_failed_opener_len:
-                continue
+        if content_end_pos + len(delim) <= pos + longest_failed_opener_len:
+            continue
 
         return delim, inline_styles, content_end_pos
 
