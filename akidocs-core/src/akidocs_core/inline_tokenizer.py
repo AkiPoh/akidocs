@@ -1,6 +1,6 @@
-from akidocs_core.tokens import Bold, InlineStyle, InlineText, Italic
+from akidocs_core.tokens import Bold, InlineStyles, InlineText, Italic
 
-DELIMITERS: list[tuple[str, frozenset[InlineStyle]]] = [
+DELIMITERS: list[tuple[str, frozenset[InlineStyles]]] = [
     ("***", frozenset({Bold(), Italic()})),
     ("**", frozenset({Bold()})),
     ("*", frozenset({Italic()})),
@@ -51,7 +51,7 @@ def _find_closing(text: str, delim: str, start: int) -> int:
 
 def _find_styled_section(
     text: str, pos: int
-) -> tuple[str, frozenset[InlineStyle], int] | None:
+) -> tuple[str, frozenset[InlineStyles], int] | None:
     """Find a styled section starting at pos. Returns (delim, styles, end_pos) or None."""
     failed_opening_len = 0
 
@@ -73,7 +73,7 @@ def _find_styled_section(
 
 
 def tokenize_inline(
-    text: str, inherited_styles: frozenset[InlineStyle] = frozenset()
+    text: str, inherited_styles: frozenset[InlineStyles] = frozenset()
 ) -> list[InlineText]:
     tokens: list[InlineText] = []
     text_buffer = ""

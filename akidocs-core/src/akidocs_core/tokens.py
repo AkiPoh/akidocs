@@ -1,26 +1,26 @@
 from dataclasses import dataclass
 
 
-class InlineStyle:
+class InlineStyles:
     """Marker base class for inline styles."""
 
     pass
 
 
 @dataclass(frozen=True)
-class Bold(InlineStyle):
+class Bold(InlineStyles):
     pass
 
 
 @dataclass(frozen=True)
-class Italic(InlineStyle):
+class Italic(InlineStyles):
     pass
 
 
 @dataclass
 class InlineText:
     content: str
-    styles: frozenset[InlineStyle] = frozenset()
+    styles: frozenset[InlineStyles] = frozenset()
 
 
 @dataclass
