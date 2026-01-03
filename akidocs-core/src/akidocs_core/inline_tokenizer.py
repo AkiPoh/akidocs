@@ -7,13 +7,16 @@ DELIMITERS: list[tuple[str, frozenset[InlineStyles]]] = [
 ]
 
 
-def _claimed_by_longer(text: str, delim: str, pos: int) -> bool:
-    """Check if a longer delimiter claims this position."""
+def _claimed_by_longer(text: str, provided_delim: str, pos: int) -> bool:
+    """Check if in this position a longer delimiter has valid claim."""
     for check_delim, _ in DELIMITERS:
-        if len(check_delim) <= len(delim):
+        # If check_delim is shorter than provided_delim
+        if len(check_delim) <= len(provided_delim):
             continue
+        # If no check_delim at this position
         if text[pos : pos + len(check_delim)] != check_delim:
             continue
+        # If longer delimiter has valid pair, recursive to _find_closing
         if _find_closing(text, check_delim, pos + len(check_delim)) != -1:
             return True
     return False
