@@ -32,6 +32,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 - Officially adopted Apache 2.0 as project license
 
 #### What's New Internally
+- Refactored `inline_tokenizer.py` for readability
 - Total number of tests: ADD BEFORE RELEASE
 
 ### Akidocs - v0.2.1-alpha / 0.2.1a0 - 2025-12-28
