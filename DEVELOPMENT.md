@@ -133,7 +133,6 @@ git stash pop
 ```
 
 ## Syncing Fork After PR Merge
-
 **Configure upstream, for fork, if you haven't already:**
 ```bash
 # Add upstream, if you haven't already
