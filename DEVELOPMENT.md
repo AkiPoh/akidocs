@@ -133,7 +133,7 @@ git stash pop
 ```
 
 ## Syncing Fork After PR Merge
-**Configure upstream, for fork, if you haven't already:**
+**Configure upstream for your fork (if you haven't already):**
 ```bash
 # Add upstream, if you haven't already
 git remote add upstream https://github.com/AkiPoh/akidocs.git
