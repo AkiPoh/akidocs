@@ -30,6 +30,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 - Tab character now accepted as separator after `#` in ATX headers (`#\tTitle` works)
 - Trim trailing `#` characters sequence from ATX header (`## Header ##` works)
 - Officially adopted Apache 2.0 as project license
+- Update `DEVELOPMENT.md` with section on syncing fork after PR merge
 
 #### What's New Internally
 - Refactored `inline_tokenizer.py` for readability
