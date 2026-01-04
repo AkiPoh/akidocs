@@ -141,7 +141,7 @@ git remote add upstream https://github.com/AkiPoh/akidocs.git
 
 Please note that the following ***deletes all work*** currently in the fork that has not been merged to upstream.
 
-**Fetch upstream changes, and reset main branch of fork:**
+**Fetch upstream changes, and reset main branch of fork, and push to GitHub:**
 ```bash
 # Fetch upstream changes
 git fetch upstream
