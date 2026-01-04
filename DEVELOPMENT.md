@@ -131,3 +131,25 @@ git rebase main
 # Restore uncommitted changes
 git stash pop
 ```
+
+## Syncing Fork After PR Merge
+**Configure upstream for your fork (if you haven't already):**
+```bash
+# Add upstream, if you haven't already
+git remote add upstream https://github.com/AkiPoh/akidocs.git
+```
+
+Please note that the following ***deletes all work*** currently in the fork that has not been merged to upstream.
+
+**Fetch upstream changes, and reset main branch of fork, and push to GitHub:**
+```bash
+# Fetch upstream changes
+git fetch upstream
+
+# Reset your main branch to match upstream
+git checkout main
+git reset --hard upstream/main
+
+# Push to your fork on GitHub (force needed due to history rewrite)
+git push origin main --force
+```
