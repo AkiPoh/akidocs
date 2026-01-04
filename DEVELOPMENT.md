@@ -150,6 +150,6 @@ git fetch upstream
 git checkout main
 git reset --hard upstream/main
 
-# Push to your fork (force needed due to history rewrite)
+# Push to your fork on GitHub (force needed due to history rewrite)
 git push origin main --force
 ```
