@@ -121,9 +121,11 @@ GitHub Actions workflow (`.github/workflows/test.yml`):
 - Runs on `ubuntu-latest`
 - Steps: checkout -> install uv -> `uv sync` -> `uv pip install -e .` -> `uv run pytest`
 
-## PR and Issue Naming
+## GitHub Workflow
 
-Use these prefixes (from `DEVELOPMENT.md`):
+### Issue and PR Naming
+
+All issues and PRs use a conventional prefix in their title (from `DEVELOPMENT.md`):
 - `feat:` — new functionality
 - `fix:` — bug fixes
 - `refactor:` — internal changes, no behavior change
@@ -131,6 +133,26 @@ Use these prefixes (from `DEVELOPMENT.md`):
 - `docs:` — documentation
 - `chore:` — other tasks
 - `epic:` — larger goals (issues only)
+
+### Issue Structure
+
+- **Epic issues** are high-level tracking issues prefixed with `epic:`. They contain a description of the scope and use GitHub sub-issues to track child work items. Examples: `epic: ATX header compliance`, `epic: Code span support`, `epic: List support`.
+- **Regular issues** describe a single unit of work (a feature, bug fix, test, etc.). They typically include context, implementation considerations, and acceptance criteria. When completed, they are closed by a linked PR.
+
+### PR Workflow
+
+1. **One issue, one PR** — each PR addresses a specific issue and links to it (e.g., "Closes #7")
+2. **PR titles match the issue prefix** — a `feat:` issue gets a `feat:` PR
+3. **Fork-based contributions** — work is done on a fork and PRs target `main` on the upstream repo
+4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge
+5. **CHANGELOG.md updates** — PRs that add features or change behavior include a changelog entry under the current dev version
+6. **CI gate** — the GitHub Actions test workflow runs on all PRs to `main` and must pass
+
+### Branch Strategy
+
+- `main` is the primary branch; all PRs merge into `main`
+- Feature work happens on separate branches or forks
+- After a PR merges, fork holders sync by resetting their `main` to upstream (see `DEVELOPMENT.md`)
 
 ## Key Design Decisions
 
