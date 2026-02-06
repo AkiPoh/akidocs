@@ -9,7 +9,7 @@ Notable changes and release notes will be documented in this file. GitHub Releas
 
 Early development release. Not yet usable for serious work. ⚠️
 
-Currently functional on *Windows 11 via PowerShell,* all instructions for PowerShell if not otherwise specified. Other platforms remain untested.
+Should work across platforms including Windows (PowerShell), Ubuntu, and macOS. Developed and primarily tested on Windows 11 via PowerShell. Instructions default to PowerShell if not otherwise specified.
 
 See https://github.com/AkiPoh/akidocs/tree/v0.2.1-alpha for specific version's documentation. Replace version tag with right one.
 
@@ -25,17 +25,19 @@ Then in PowerShell:
 uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirectory=akidocs-core
 ```
 
-### Akidocs - 0.3.0.dev0 - UNDER DEVELOPMENT
+### Akidocs - v0.3.0-alpha / 0.3.0a0 - 2026-02-06
 #### What's New
 - Tab character now accepted as separator after `#` in ATX headers (`#\tTitle` works)
 - Trim trailing `#` characters sequence from ATX header (`## Header ##` works)
 - Officially adopted Apache 2.0 as project license
 - Simplify `DEVELOPMENT.md` and update it with section on syncing fork after PR merge
 - Added `CLAUDE.md` guide for AI assistants covering project structure, conventions, and workflows
+- Adopted PR-based development workflow — all changes to main go through PRs, issues used where appropriate
+- Now leveraging Claude Code for development
 
 #### What's New Internally
 - Refactored `inline_tokenizer.py` for readability
-- Total number of tests: ADD BEFORE RELEASE
+- Total number of tests: 66
 
 ### Akidocs - v0.2.1-alpha / 0.2.1a0 - 2025-12-28
 #### What's New

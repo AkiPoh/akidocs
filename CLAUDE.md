@@ -149,11 +149,65 @@ All issues and PRs use a conventional prefix in their title (from `DEVELOPMENT.m
 5. **CHANGELOG.md updates** — PRs that add features or change behavior include a changelog entry under the current dev version
 6. **CI gate** — the GitHub Actions test workflow runs on all PRs to `main` and must pass
 
+### PR Description Format
+
+PR descriptions start with a precise bullet-point summary before any additional context. This summary is used as the squash merge commit message. Each bullet describes a specific change, starting with an action verb. Link the closing issue as the first bullet when applicable.
+
+Example:
+```
+* Closes #43, simplify `DEVELOPMENT.md` by removing irrelevant content
+* Add section on valid Issue and PR prefixes in `DEVELOPMENT.md`
+* Remove feature branch focused content from `DEVELOPMENT.md`
+* Remove reference to `DEVELOPMENT.md` from `README.md`
+* Document simplification in `CHANGELOG.md`
+```
+
 ### Branch Strategy
 
 - `main` is the primary branch; all PRs merge into `main`
 - Feature work happens on separate branches or forks
 - After a PR merges, fork holders sync by resetting their `main` to upstream (see `DEVELOPMENT.md`)
+
+## Releases
+
+### Version Scheme
+
+Versions follow the pattern `X.Y.Z` with PEP 440 suffixes:
+- **During development**: `0.3.0.dev0` in `pyproject.toml`, `0.3.0.dev0 - UNDER DEVELOPMENT` in CHANGELOG header
+- **At release**: `0.3.0a0` in `pyproject.toml`, `v0.3.0-alpha / 0.3.0a0 - YYYY-MM-DD` in CHANGELOG header
+
+### CHANGELOG Conventions
+
+- The current dev version section sits at the top of the version list in `CHANGELOG.md`
+- Entries are roughly chronological — earlier changes first, later additions (workflow changes, tooling, etc.) toward the end
+- `#### What's New` for user-facing changes, `#### What's New Internally` for internal changes
+- The last line in "What's New Internally" is `Total number of tests: ADD BEFORE RELEASE` during development, replaced with the actual count at release time
+
+### Release Checklist
+
+1. Update CHANGELOG.md:
+   - Replace dev header (`0.3.0.dev0 - UNDER DEVELOPMENT`) with release header (`v0.3.0-alpha / 0.3.0a0 - YYYY-MM-DD`)
+   - Fill in the test count placeholder with the actual number from `uv run pytest`
+   - Verify entries are complete and in chronological order
+2. Bump version in `pyproject.toml` (e.g., `0.3.0.dev0` -> `0.3.0a0`)
+3. Run `uv sync` to update `uv.lock`
+4. Run full test suite: `cd akidocs-core && uv run pytest`
+5. Commit: `chore: Prepare vX.Y.Z-alpha release`
+6. After merge, create a GitHub Release with the `vX.Y.Z-alpha` tag
+
+### After Release
+
+To start the next dev cycle, bump the version to the next dev marker (e.g., `0.4.0.dev0`) and add a new CHANGELOG section:
+
+```markdown
+### Akidocs - 0.4.0.dev0 - UNDER DEVELOPMENT
+#### What's New
+-
+
+#### What's New Internally
+-
+- Total number of tests: ADD BEFORE RELEASE
+```
 
 ## Key Design Decisions
 
