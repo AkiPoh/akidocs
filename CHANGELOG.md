@@ -31,6 +31,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 - Trim trailing `#` characters sequence from ATX header (`## Header ##` works)
 - Officially adopted Apache 2.0 as project license
 - Simplify `DEVELOPMENT.md` and update it with section on syncing fork after PR merge
+- Added `CLAUDE.md` guide for AI assistants covering project structure, conventions, and workflows
 
 #### What's New Internally
 - Refactored `inline_tokenizer.py` for readability
