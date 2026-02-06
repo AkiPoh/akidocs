@@ -1,4 +1,4 @@
-# CLAUDE.md
+# Akidocs — AI Assistant Guide
 
 Guide for AI assistants working on the Akidocs codebase.
 
@@ -29,9 +29,9 @@ uv run pytest
 uv run pytest -v          # verbose
 
 # Run the CLI
-uv run python -m akidocs_core input.md output.pdf
-uv run python -m akidocs_core input.md output.pdf -o    # open after creation
-uv run python -m akidocs_core input.md output.pdf -s times  # use "times" style
+uv run aki input.md output.pdf
+uv run aki input.md output.pdf -o         # open after creation
+uv run aki input.md output.pdf -s times   # use "times" style
 ```
 
 ## Project Structure
@@ -40,6 +40,7 @@ uv run python -m akidocs_core input.md output.pdf -s times  # use "times" style
 akidocs/
 ├── akidocs-core/                  # Main Python package
 │   ├── src/akidocs_core/          # Source code
+│   │   ├── __init__.py            # Package init
 │   │   ├── cli.py                 # CLI entry point (argparse)
 │   │   ├── tokenizer.py           # Block-level tokenization (headers, paragraphs)
 │   │   ├── inline_tokenizer.py    # Inline style tokenization (bold, italic)
@@ -87,7 +88,7 @@ Markdown text -> tokenize() -> list[Token] -> render_pdf() -> PDF bytes
 
 ## Code Conventions
 
-- **Type hints everywhere** — all functions have type annotations
+- **Type hints** — functions use type annotations (some entry points like `main()` may omit return types)
 - **Frozen dataclasses** for immutable data (`Token` types, `Style`)
 - **Match statements** for token dispatch in the renderer
 - **Private functions** prefixed with `_` (e.g., `_render_header`, `_find_closing`)
