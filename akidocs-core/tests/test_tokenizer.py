@@ -152,3 +152,47 @@ def test_header_empty_content_trailing_pound_signs():
     assert isinstance(result[0], Header)
     assert result[0].level == 3
     assert result[0].content == []
+
+
+def test_header_single_newline_paragraph():
+    result = tokenize("# Title\nParagraph text")
+    assert len(result) == 2
+    assert isinstance(result[0], Header)
+    assert result[0].level == 1
+    assert result[0].content == [InlineText(content="Title")]
+    assert isinstance(result[1], Paragraph)
+    assert result[1].content == [InlineText(content="Paragraph text")]
+
+
+def test_multiple_headers_single_newline():
+    result = tokenize("# one\ncontent\n## two\n### three")
+    assert len(result) == 4
+    assert isinstance(result[0], Header)
+    assert result[0].level == 1
+    assert isinstance(result[1], Paragraph)
+    assert result[1].content == [InlineText(content="content")]
+    assert isinstance(result[2], Header)
+    assert result[2].level == 2
+    assert isinstance(result[3], Header)
+    assert result[3].level == 3
+
+
+def test_paragraph_before_header():
+    result = tokenize("text\n# Header")
+    assert len(result) == 2
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [InlineText(content="text")]
+    assert isinstance(result[1], Header)
+    assert result[1].level == 1
+    assert result[1].content == [InlineText(content="Header")]
+
+
+def test_paragraph_lines_merge_after_header():
+    result = tokenize("# Header\nLine one\nLine two\n\nSecond paragraph")
+    assert len(result) == 3
+    assert isinstance(result[0], Header)
+    assert result[0].level == 1
+    assert isinstance(result[1], Paragraph)
+    assert result[1].content == [InlineText(content="Line one\nLine two")]
+    assert isinstance(result[2], Paragraph)
+    assert result[2].content == [InlineText(content="Second paragraph")]

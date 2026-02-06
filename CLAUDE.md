@@ -12,6 +12,17 @@ Akidocs is a Markdown-to-PDF converter CLI tool written in Python. The main pack
 - **Test framework**: `pytest`
 - **License**: Apache 2.0
 
+## Before Starting Any Work
+
+Before writing code or making changes, always verify the starting state:
+
+1. **Correct branch** — confirm you are on the right branch for the task, not leftover from a previous task. Branch names should match the work (e.g., `feat/header-single-newline` for a feature, not `chore/bump-v0.4.0-dev`)
+2. **Up to date with main** — run `git fetch origin main` and check that your branch is not behind `origin/main`. Rebase if needed before starting
+3. **Clean working tree** — run `git status` to ensure there are no uncommitted changes from previous work
+4. **Dependencies synced** — run `uv sync && uv pip install -e .` in `akidocs-core/` if there's any chance dependencies changed
+
+Catching these issues at the start is far cheaper than discovering them mid-work (e.g., merge conflicts after writing code, wrong branch name on a PR).
+
 ## Quick Reference
 
 ```bash
@@ -78,7 +89,7 @@ Markdown text -> tokenize() -> list[Token] -> render_pdf() -> PDF bytes
 
 **Key modules and their roles:**
 
-- `tokenizer.py` — Splits text into blocks by double-newline, classifies each as `Header` or `Paragraph`
+- `tokenizer.py` — Line-by-line tokenization: headers terminate at single newline, non-header lines accumulate into `Paragraph` blocks separated by blank lines
 - `inline_tokenizer.py` — Recursively parses `*`, `**`, `***` delimiters for inline styles. Handles nesting
 - `tokens.py` — Immutable data structures: `Header`, `Paragraph`, `InlineText`, `Bold`, `Italic`. Union type `Token = Header | Paragraph`
 - `renderer.py` — Converts token list to PDF bytes using fpdf2. Uses `match` statements for token dispatch
