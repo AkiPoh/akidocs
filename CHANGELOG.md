@@ -25,6 +25,14 @@ Then in PowerShell:
 uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirectory=akidocs-core
 ```
 
+### Akidocs - 0.4.0.dev0 - UNDER DEVELOPMENT
+#### What's New
+-
+
+#### What's New Internally
+-
+- Total number of tests: ADD BEFORE RELEASE
+
 ### Akidocs - v0.3.0-alpha / 0.3.0a0 - 2026-02-06
 #### What's New
 - Tab character now accepted as separator after `#` in ATX headers (`#\tTitle` works)
