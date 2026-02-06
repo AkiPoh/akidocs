@@ -29,19 +29,31 @@ def tokenize(text: str) -> list[Token]:
     if text == "":
         return []
 
-    blocks = text.split("\n\n")
-    tokens = []
+    lines = text.split("\n")
+    tokens: list[Token] = []
+    paragraph_lines: list[str] = []
 
-    for block in blocks:
-        block = block.strip()
-        if block == "":
+    def flush_paragraph() -> None:
+        joined = "\n".join(paragraph_lines).strip()
+        if joined:
+            tokens.append(Paragraph(content=tokenize_inline(joined)))
+        paragraph_lines.clear()
+
+    for line in lines:
+        stripped = line.strip()
+
+        if stripped == "":
+            flush_paragraph()
             continue
 
-        header = try_parse_header(block)
+        header = try_parse_header(stripped)
         if header:
+            flush_paragraph()
             tokens.append(header)
             continue
 
-        tokens.append(Paragraph(content=tokenize_inline(block)))
+        paragraph_lines.append(line)
+
+    flush_paragraph()
 
     return tokens
