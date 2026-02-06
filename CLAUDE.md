@@ -28,13 +28,10 @@ uv pip install -e .
 uv run pytest
 uv run pytest -v          # verbose
 
-# Run the CLI (requires editable install above)
-uv run aki input.md output.pdf
-uv run aki input.md output.pdf -o         # open after creation
-uv run aki input.md output.pdf -s times   # use "times" style
-
-# Alternative: module invocation (also used by tests)
-uv run python -m akidocs_core input.md output.pdf
+# Run the CLI (dev invocation)
+uv run akidocs_core input.md output.pdf
+uv run akidocs_core input.md output.pdf -o         # open after creation
+uv run akidocs_core input.md output.pdf -s times   # use "times" style
 ```
 
 ## Project Structure
