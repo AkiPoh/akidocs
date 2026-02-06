@@ -30,10 +30,10 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 - Tab character now accepted as separator after `#` in ATX headers (`#\tTitle` works)
 - Trim trailing `#` characters sequence from ATX header (`## Header ##` works)
 - Officially adopted Apache 2.0 as project license
-- Switched to Issue and PR-based development workflow — all work tracked via GitHub Issues with linked PRs
-- Now leveraging Claude Code for development
 - Simplify `DEVELOPMENT.md` and update it with section on syncing fork after PR merge
 - Added `CLAUDE.md` guide for AI assistants covering project structure, conventions, and workflows
+- Adopted PR-based development workflow — all changes to main go through PRs, issues used where appropriate
+- Now leveraging Claude Code for development
 
 #### What's New Internally
 - Refactored `inline_tokenizer.py` for readability
