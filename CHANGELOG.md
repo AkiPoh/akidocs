@@ -27,7 +27,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 
 ### Akidocs - 0.4.0.dev0 - UNDER DEVELOPMENT
 #### What's New
-- Header blocks now terminate at single newlines; a header followed by text on the next line produces separate header and paragraph tokens
+- Header blocks now terminate at single newline (`# Title\nText` → Header + Paragraph)
 
 #### What's New Internally
 -
