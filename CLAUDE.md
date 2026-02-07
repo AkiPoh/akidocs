@@ -36,14 +36,16 @@ uv sync
 uv pip install -e .
 
 # Run tests
-uv run pytest
-uv run pytest -v          # verbose
+uv run python -m pytest
+uv run python -m pytest -v          # verbose
 
 # Run the CLI (dev invocation)
 uv run akidocs_core input.md output.pdf
 uv run akidocs_core input.md output.pdf -o         # open after creation
 uv run akidocs_core input.md output.pdf -s times   # use "times" style
 ```
+
+> **Windows/Git Bash note:** `uv run pytest` fails with "Failed to canonicalize script path" on Windows under Git Bash. Use `uv run python -m pytest` instead. This applies to all pytest invocations throughout this document.
 
 ## Project Structure
 
@@ -123,7 +125,7 @@ Development follows **test-driven development (TDD)**.
 
 **Run tests before committing any change:**
 ```bash
-cd akidocs-core && uv sync && uv pip install -e . && uv run pytest
+cd akidocs-core && uv sync && uv pip install -e . && uv run python -m pytest
 ```
 
 ## CI
@@ -202,7 +204,7 @@ Versions follow the pattern `X.Y.Z` with PEP 440 suffixes:
    - Verify entries are complete and in chronological order
 2. Bump version in `pyproject.toml` (e.g., `0.3.0.dev0` -> `0.3.0a0`)
 3. Run `uv sync` to update `uv.lock`
-4. Run full test suite: `cd akidocs-core && uv run pytest`
+4. Run full test suite: `cd akidocs-core && uv run python -m pytest`
 5. Commit: `chore: Prepare vX.Y.Z-alpha release`
 6. After merge, create a GitHub Release with the `vX.Y.Z-alpha` tag
 
