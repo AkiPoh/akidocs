@@ -172,14 +172,15 @@ All issues and PRs use a conventional prefix in their title (from `DEVELOPMENT.m
 1. **One issue, one PR** — each PR addresses a specific issue and links to it (e.g., "Closes #7")
 2. **PR titles match the issue prefix** — a `feat:` issue gets a `feat:` PR
 3. **Fork-based contributions** — work is done on a fork and PRs target `main` on the upstream repo
-4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge
+4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge. Commits should reflect the Red-Green-Refactor cycle where applicable
 5. **CHANGELOG.md updates** — PRs that add features or change behavior include a changelog entry under the current dev version
 6. **CI gate** — the GitHub Actions test workflow runs on all PRs to `main` and must pass
-7. **Keep PR up to date** — when changes are made after the PR is created, update the title and description to accurately reflect the current state of the PR
+7. **Keep PR up to date** — when changes are made after the PR is created, update the title and description to accurately reflect the current state of the PR. The PR title and top-level bullet summary are used as the squash merge commit message — they must always be current
+8. **Don't amend commits** — PRs are squash merged, so individual commits don't need to be clean. Use separate commits to document the process, including Red-Green-Refactor steps
 
 ### PR Description Format
 
-PR descriptions start with a precise bullet-point summary before any additional context. This summary is used as the squash merge commit message. Each bullet describes a specific change, starting with an action verb. Link the closing issue as the first bullet when applicable.
+PR descriptions start with a precise bullet-point summary. The PR title and this summary become the squash merge commit message — nothing below it is included. Each bullet describes a specific change, starting with an action verb. Link the closing issue as the first bullet when applicable.
 
 Example:
 ```
