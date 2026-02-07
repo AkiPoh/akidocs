@@ -77,6 +77,7 @@ akidocs/
 │   │   ├── test_inline_tokenizer.py
 │   │   ├── test_renderer.py
 │   │   └── test_opener.py         # Platform-specific tests with mocking
+│   ├── test.md                    # Visual test — render to PDF to verify output. Update when adding features
 │   ├── pyproject.toml             # Package config and dependencies
 │   ├── uv.lock                    # Dependency lock file
 │   └── .python-version            # Python 3.14
