@@ -28,6 +28,8 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 ### Akidocs - 0.4.0.dev0 - UNDER DEVELOPMENT
 #### What's New
 - Header blocks now terminate at single newline (`# Title\nText` → Header + Paragraph)
+- Hard line breaks: two or more trailing spaces before a newline now create a line break in PDF output
+- Soft line breaks: single newlines within paragraphs now render as spaces
 
 #### What's New Internally
 -

@@ -82,7 +82,7 @@ def test_single_newline_stays_in_paragraph():
     result = tokenize("Line one\nLine two")
     assert len(result) == 1
     assert isinstance(result[0], Paragraph)
-    assert result[0].content == [InlineText(content="Line one\nLine two")]
+    assert result[0].content == [InlineText(content="Line one Line two")]
 
 
 def test_multiple_blank_lines():
@@ -204,6 +204,49 @@ def test_paragraph_lines_merge_after_header():
     assert isinstance(result[0], Header)
     assert result[0].level == 1
     assert isinstance(result[1], Paragraph)
-    assert result[1].content == [InlineText(content="Line one\nLine two")]
+    assert result[1].content == [InlineText(content="Line one Line two")]
     assert isinstance(result[2], Paragraph)
     assert result[2].content == [InlineText(content="Second paragraph")]
+
+
+def test_soft_break_becomes_space():
+    result = tokenize("Line one\nLine two")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [InlineText(content="Line one Line two")]
+
+
+def test_hard_break_two_trailing_spaces():
+    result = tokenize("Line one  \nLine two")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [InlineText(content="Line one\nLine two")]
+
+
+def test_hard_break_more_than_two_spaces():
+    result = tokenize("Line one     \nLine two")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [InlineText(content="Line one\nLine two")]
+
+
+def test_hard_break_multiple():
+    result = tokenize("Line one  \nLine two  \nLine three")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [InlineText(content="Line one\nLine two\nLine three")]
+
+
+def test_hard_break_at_end_of_paragraph_ignored():
+    result = tokenize("Line one  \nLine two  ")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [InlineText(content="Line one\nLine two")]
+
+
+def test_hard_break_with_styles():
+    result = tokenize("*Line one*  \n*Line two*")
+    assert len(result) == 1
+    paragraph = result[0]
+    assert isinstance(paragraph, Paragraph)
+    assert InlineText(content="\n") in paragraph.content

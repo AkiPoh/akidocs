@@ -34,7 +34,21 @@ def tokenize(text: str) -> list[Token]:
     paragraph_lines: list[str] = []
 
     def flush_paragraph() -> None:
-        joined = "\n".join(paragraph_lines).strip()
+        if not paragraph_lines:
+            return
+
+        parts: list[str] = []
+        for i, line in enumerate(paragraph_lines):
+            stripped_line = line.rstrip(" ")
+            trailing_spaces = len(line) - len(stripped_line)
+            if i < len(paragraph_lines) - 1 and trailing_spaces >= 2:
+                parts.append(stripped_line + "\n")
+            elif i < len(paragraph_lines) - 1:
+                parts.append(stripped_line + " ")
+            else:
+                parts.append(stripped_line)
+
+        joined = "".join(parts).strip()
         if joined:
             tokens.append(Paragraph(content=tokenize_inline(joined)))
         paragraph_lines.clear()
