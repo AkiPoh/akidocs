@@ -41,3 +41,15 @@ def test_render_handles_styled_text(style):
     ]
     result = render_pdf(tokens)
     assert_valid_pdf_bytes(result)
+
+
+def test_render_handles_hard_break():
+    tokens = [
+        Paragraph(
+            content=[
+                InlineText(content="Line one\nLine two"),
+            ]
+        )
+    ]
+    result = render_pdf(tokens)
+    assert_valid_pdf_bytes(result)
