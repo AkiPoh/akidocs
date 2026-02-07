@@ -1,3 +1,5 @@
+import pytest
+
 from akidocs_core.tokenizer import tokenize
 from akidocs_core.tokens import Header, InlineText, Italic, Paragraph
 
@@ -152,6 +154,15 @@ def test_header_empty_content_trailing_pound_signs():
     assert isinstance(result[0], Header)
     assert result[0].level == 3
     assert result[0].content == []
+
+
+@pytest.mark.parametrize("spaces", [0, 1, 2, 3])
+def test_header_with_leading_spaces(spaces):
+    result = tokenize(f"{' ' * spaces}# Hello")
+    assert len(result) == 1
+    assert isinstance(result[0], Header)
+    assert result[0].level == 1
+    assert result[0].content == [InlineText(content="Hello")]
 
 
 def test_header_single_newline_paragraph():
