@@ -21,7 +21,7 @@ Before writing code or making changes, always verify the starting state:
 1. **Create a branch** — `git checkout -b feat/your-feature` (or `fix/`, `chore/`, etc.). Do this first, before any changes. Never accumulate uncommitted work on `main`
 2. **Up to date with main** — run `git fetch origin main` and check that your branch is not behind `origin/main`. Rebase if needed before starting
 3. **Clean working tree** — run `git status` to ensure there are no uncommitted changes from previous work
-4. **Dependencies synced** — run `uv sync && uv pip install -e .` in `akidocs-core/` if there's any chance dependencies changed
+4. **Dependencies synced** — run `uv sync` in `akidocs-core/` if there's any chance dependencies changed
 
 Catching these issues at the start is far cheaper than discovering them mid-work (e.g., merge conflicts after writing code, wrong branch name on a PR).
 
@@ -31,11 +31,8 @@ Catching these issues at the start is far cheaper than discovering them mid-work
 # All commands run from akidocs-core/
 cd akidocs-core
 
-# Install dependencies
+# Install dependencies and package
 uv sync
-
-# Install package in editable mode (required before running tests)
-uv pip install -e .
 
 # Run tests
 uv run python -m pytest
@@ -50,9 +47,9 @@ uv run ruff format .
 uv run ruff format --check .  # check without modifying
 
 # Run the CLI (dev invocation)
-uv run akidocs_core input.md output.pdf
-uv run akidocs_core input.md output.pdf -o         # open after creation
-uv run akidocs_core input.md output.pdf -s times   # use "times" style
+uv run aki input.md output.pdf
+uv run aki input.md output.pdf -o         # open after creation
+uv run aki input.md output.pdf -s times   # use "times" style
 ```
 
 > **Windows/Git Bash note:** `uv run pytest` fails with "Failed to canonicalize script path" on Windows under Git Bash. Use `uv run python -m pytest` instead. This applies to all pytest invocations throughout this document.
@@ -141,7 +138,7 @@ Development follows **test-driven development (TDD)**.
 
 **Run tests before committing any change:**
 ```bash
-cd akidocs-core && uv sync && uv pip install -e . && uv run python -m pytest
+cd akidocs-core && uv sync && uv run python -m pytest
 ```
 
 ## CI
@@ -150,7 +147,7 @@ GitHub Actions workflow (`.github/workflows/test.yml`):
 - Triggers on push to `main` and pull requests to `main`
 - Runs on `ubuntu-latest`
 - **`lint` job**: checkout -> install uv -> `uv sync` -> `uv run ruff check .` -> `uv run ruff format --check .`
-- **`test` job**: checkout -> install uv -> `uv sync` -> `uv pip install -e .` -> `uv run pytest`
+- **`test` job**: checkout -> install uv -> `uv sync` -> `uv run pytest`
 
 ## GitHub Workflow
 
