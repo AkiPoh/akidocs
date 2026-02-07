@@ -14,9 +14,11 @@ Akidocs is a Markdown-to-PDF converter CLI tool written in Python. The main pack
 
 ## Before Starting Any Work
 
+**NEVER work directly on `main`.** Create a feature branch before writing any code. All work happens on branches — `main` only receives changes through merged PRs.
+
 Before writing code or making changes, always verify the starting state:
 
-1. **Correct branch** — confirm you are on the right branch for the task, not leftover from a previous task. Branch names should match the work (e.g., `feat/header-single-newline` for a feature, not `chore/bump-v0.4.0-dev`)
+1. **Create a branch** — `git checkout -b feat/your-feature` (or `fix/`, `chore/`, etc.). Do this first, before any changes. Never accumulate uncommitted work on `main`
 2. **Up to date with main** — run `git fetch origin main` and check that your branch is not behind `origin/main`. Rebase if needed before starting
 3. **Clean working tree** — run `git status` to ensure there are no uncommitted changes from previous work
 4. **Dependencies synced** — run `uv sync && uv pip install -e .` in `akidocs-core/` if there's any chance dependencies changed
@@ -173,7 +175,7 @@ All issues and PRs use a conventional prefix in their title (from `DEVELOPMENT.m
 1. **One issue, one PR** — each PR addresses a specific issue and links to it (e.g., "Closes #7")
 2. **PR titles match the issue prefix** — a `feat:` issue gets a `feat:` PR
 3. **Fork-based contributions** — work is done on a fork and PRs target `main` on the upstream repo
-4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge. Commits should reflect the Red-Green-Refactor cycle where applicable
+4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge. **Commit at each Red-Green-Refactor step**: commit the failing test (Red), commit the passing implementation (Green), commit the cleanup (Refactor). Each step is a separate commit. This is not optional — frequent small commits document the process and are squash merged anyway
 5. **README.md and CHANGELOG.md updates** — PRs that add features, change user-facing behavior, or modify dev tooling affecting human developers should update README.md and CHANGELOG.md as appropriate. README.md reflects current capabilities; CHANGELOG.md tracks what changed per version
 6. **CI gate** — the GitHub Actions test workflow runs on all PRs to `main` and must pass
 7. **Keep PR up to date** — when changes are made after the PR is created, update the title and description to accurately reflect the current state of the PR. The PR title and top-level bullet summary are used as the squash merge commit message — they must always be current
