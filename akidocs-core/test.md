@@ -15,3 +15,41 @@ This has ***bold and italic*** together.
 This has **bold with *nested italic* inside**.
 
 This has *italic with **nested bold** inside*.
+
+## Soft break test
+
+This line has a single newline
+so it should join with a space and flow as one paragraph.
+
+## Hard break test
+
+This line has two trailing spaces  
+so it should break here and start a new line.
+
+This line has five trailing spaces     
+which should also produce a hard break.
+
+## Multiple hard breaks
+
+Line one  
+Line two  
+Line three
+
+## Mixed soft and hard breaks
+
+Soft break here
+continues on same line, but hard break here  
+starts a new line, then soft again
+all one paragraph.
+
+## Hard break with styles
+
+*Italic line one*  
+*Italic line two*
+
+**Bold line one**  
+**Bold line two**
+
+## Hard break at end of paragraph ignored
+
+These trailing spaces at the end of a paragraph do nothing special.  
