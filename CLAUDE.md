@@ -39,6 +39,14 @@ uv pip install -e .
 uv run python -m pytest
 uv run python -m pytest -v          # verbose
 
+# Lint
+uv run ruff check .
+uv run ruff check . --fix     # auto-fix safe violations
+
+# Format
+uv run ruff format .
+uv run ruff format --check .  # check without modifying
+
 # Run the CLI (dev invocation)
 uv run akidocs_core input.md output.pdf
 uv run akidocs_core input.md output.pdf -o         # open after creation
@@ -110,7 +118,12 @@ Markdown text -> tokenize() -> list[Token] -> render_pdf() -> PDF bytes
 - **UTF-8 encoding** always specified explicitly: `read_text(encoding="utf-8")`
 - **Millimeters internally** — points only at PDF generation boundaries
 - **Minimal dependencies** — only `fpdf2` in production; keep it lean
-- **No external linter/formatter config** — no mypy, ruff, black, or flake8 config files exist
+- **Ruff** for linting and formatting — configured in `pyproject.toml`. Run `uv run ruff check .` and `uv run ruff format .` before committing
+- **Preserve original names and intent** — never silently rename variables, extract unnecessary temporaries, or reword precise text to satisfy linting rules. If code is correct and clear, configure the tooling around it, not the other way around
+
+## Documentation Quality
+
+Documentation (README, CHANGELOG, code comments) priorities in order: **precision**, **clarity**, **brevity**. Provide the correct information in the right place — never incorrect, misplaced, or filler content. Every word should earn its place. When modifying documentation, the result must be higher quality than what it started with.
 
 ## Testing
 
@@ -133,7 +146,8 @@ cd akidocs-core && uv sync && uv pip install -e . && uv run python -m pytest
 GitHub Actions workflow (`.github/workflows/test.yml`):
 - Triggers on push to `main` and pull requests to `main`
 - Runs on `ubuntu-latest`
-- Steps: checkout -> install uv -> `uv sync` -> `uv pip install -e .` -> `uv run pytest`
+- **`lint` job**: checkout -> install uv -> `uv sync` -> `uv run ruff check .` -> `uv run ruff format --check .`
+- **`test` job**: checkout -> install uv -> `uv sync` -> `uv pip install -e .` -> `uv run pytest`
 
 ## GitHub Workflow
 
@@ -158,13 +172,15 @@ All issues and PRs use a conventional prefix in their title (from `DEVELOPMENT.m
 1. **One issue, one PR** — each PR addresses a specific issue and links to it (e.g., "Closes #7")
 2. **PR titles match the issue prefix** — a `feat:` issue gets a `feat:` PR
 3. **Fork-based contributions** — work is done on a fork and PRs target `main` on the upstream repo
-4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge
+4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge. Commits should reflect the Red-Green-Refactor cycle where applicable
 5. **CHANGELOG.md updates** — PRs that add features or change behavior include a changelog entry under the current dev version
 6. **CI gate** — the GitHub Actions test workflow runs on all PRs to `main` and must pass
+7. **Keep PR up to date** — when changes are made after the PR is created, update the title and description to accurately reflect the current state of the PR. The PR title and top-level bullet summary are used as the squash merge commit message — they must always be current
+8. **Don't amend commits** — PRs are squash merged, so individual commits don't need to be clean. Use separate commits to document the process, including Red-Green-Refactor steps
 
 ### PR Description Format
 
-PR descriptions start with a precise bullet-point summary before any additional context. This summary is used as the squash merge commit message. Each bullet describes a specific change, starting with an action verb. Link the closing issue as the first bullet when applicable.
+PR descriptions start with a precise bullet-point summary. The PR title and this summary become the squash merge commit message — nothing below it is included. Each bullet describes a specific change, starting with an action verb. Link the closing issue as the first bullet when applicable.
 
 Example:
 ```
