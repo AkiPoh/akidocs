@@ -1,9 +1,10 @@
 import pytest
 
 from akidocs_core.tokenizer import tokenize
-from akidocs_core.tokens import Header, InlineText, Italic, Paragraph
+from akidocs_core.tokens import Code, Header, InlineText, Italic, Paragraph
 
 ITALIC = frozenset({Italic()})
+CODE = frozenset({Code()})
 
 
 def test_empty_string_returns_empty_list():
@@ -250,3 +251,14 @@ def test_hard_break_with_styles():
     paragraph = result[0]
     assert isinstance(paragraph, Paragraph)
     assert InlineText(content="\n") in paragraph.content
+
+
+def test_paragraph_with_code_span():
+    result = tokenize("Use `print()` to output")
+    assert len(result) == 1
+    assert isinstance(result[0], Paragraph)
+    assert result[0].content == [
+        InlineText(content="Use "),
+        InlineText(content="print()", styles=CODE),
+        InlineText(content=" to output"),
+    ]

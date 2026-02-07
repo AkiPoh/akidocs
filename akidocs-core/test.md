@@ -1,55 +1,33 @@
-# Hello *World* **2**
+# Heading 1
 
-One might wonder why we have a test Markdown file **here** at akidocs-core and at repository root. Worry not I have an answer **for you guys. *Because* it's rather** **convenient** to have quick test files at two different places for quick reproducable testing. 2
+## Heading 2
 
-## *Second heading 2*
+### Heading 3
 
-*Another paragraph here. 2*
+#### Heading 4
 
-## **Third heading 2**  #####
+##### Heading 5
 
-## Composable styles test
+###### Heading 6
 
-This has ***bold and italic*** together.
+## Inline styles
 
-This has **bold with *nested italic* inside**.
+Plain, *italic*, **bold**, ***bold italic***.
 
-This has *italic with **nested bold** inside*.
+**Bold with *italic* inside** and *italic with **bold** inside*.
 
-## Soft break test
+Inline `code span` and **bold with `code` inside**.
 
-This line has a single newline
-so it should join with a space and flow as one paragraph.
+`**asterisks preserved**` in code spans.
 
-## Hard break test
-
-This line has two trailing spaces  
-so it should break here and start a new line.
-
-This line has five trailing spaces     
-which should also produce a hard break.
-
-## Multiple hard breaks
-
-Line one  
-Line two  
-Line three
-
-## Mixed soft and hard breaks
+## Breaks
 
 Soft break here
-continues on same line, but hard break here  
-starts a new line, then soft again
-all one paragraph.
+continues on same line.
 
-## Hard break with styles
+Hard break here  
+starts a new line.
 
-*Italic line one*  
-*Italic line two*
-
-**Bold line one**  
-**Bold line two**
-
-## Hard break at end of paragraph ignored
-
-These trailing spaces at the end of a paragraph do nothing special.  
+*Styled line one*  
+**styled line two**  
+line three.

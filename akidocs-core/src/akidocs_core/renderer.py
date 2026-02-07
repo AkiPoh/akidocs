@@ -4,6 +4,7 @@ from akidocs_core.style_base import Style, mm_to_pt
 from akidocs_core.styles import GENERIC
 from akidocs_core.tokens import (
     Bold,
+    Code,
     Header,
     InlineText,
     Italic,
@@ -19,15 +20,21 @@ def _render_inline_tokens(
     size_pt: float,
     line_height: float,
     font_family: str,
+    code_font_family: str,
+    code_font_style: str,
 ) -> None:
     for token in tokens:
-        style = base_style
-        if Bold() in token.styles:
-            style += "B"
-        if Italic() in token.styles:
-            style += "I"
-        style = "".join(sorted(set(style)))
-        pdf.set_font(font_family, style=style, size=size_pt)
+        if Code() in token.styles:
+            style = code_font_style
+        else:
+            style = base_style
+            if Bold() in token.styles:
+                style += "B"
+            if Italic() in token.styles:
+                style += "I"
+            style = "".join(sorted(set(style)))
+        active_font = code_font_family if Code() in token.styles else font_family
+        pdf.set_font(active_font, style=style, size=size_pt)
         pdf.write(line_height, token.content)
 
 
@@ -44,6 +51,8 @@ def _render_header(
         size_pt,
         line_height,
         style.font_family,
+        style.code_font_family,
+        style.code_font_style,
     )
     pdf.ln(line_height + style.header_margin_after)
 
@@ -58,6 +67,8 @@ def _render_paragraph(pdf: FPDF, content: list[InlineText], style: Style) -> Non
         size_pt,
         line_height,
         style.font_family,
+        style.code_font_family,
+        style.code_font_style,
     )
     pdf.ln(line_height + style.paragraph_margin_after)
 

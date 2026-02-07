@@ -17,6 +17,11 @@ class Italic(InlineStyles):
     pass
 
 
+@dataclass(frozen=True)
+class Code(InlineStyles):
+    pass
+
+
 @dataclass
 class InlineText:
     content: str

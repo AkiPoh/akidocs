@@ -1,4 +1,4 @@
-from akidocs_core.tokens import Bold, InlineStyles, InlineText, Italic
+from akidocs_core.tokens import Bold, Code, InlineStyles, InlineText, Italic
 
 DELIMITERS: list[tuple[str, frozenset[InlineStyles]]] = [
     ("***", frozenset({Bold(), Italic()})),
@@ -24,6 +24,11 @@ def _claimed_by_longer(text: str, provided_delim: str, pos: int) -> bool:
 
 def _skip_nested_at(text: str, provided_delim: str, pos: int) -> int | None:
     """When searching for closing delimiter, skip over nested sections that use different delimiter."""
+    if text[pos] == "`":
+        close = text.find("`", pos + 1)
+        if close != -1:
+            return close + 1
+
     for check_delim, _ in DELIMITERS:
         # If check_delim is provided_delim, then skip
         if check_delim == provided_delim:
@@ -98,6 +103,23 @@ def tokenize_inline(
     pos = 0
 
     while pos < len(text):
+        if text[pos] == "`":
+            close = text.find("`", pos + 1)
+            if close != -1:
+                if text_buffer:
+                    inline_tokens.append(
+                        InlineText(content=text_buffer, styles=inherited_styles)
+                    )
+                    text_buffer = ""
+                inner_content = text[pos + 1 : close]
+                combined_styles = inherited_styles | frozenset({Code()})
+                inline_tokens.append(
+                    InlineText(content=inner_content, styles=combined_styles)
+                )
+                pos = close + 1
+                continue
+            # Unclosed backtick — fall through to treat as literal character
+
         section = _find_styled_section(text, pos)
 
         # No match for style in section
