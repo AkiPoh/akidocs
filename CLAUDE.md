@@ -21,7 +21,7 @@ Before writing code or making changes, always verify the starting state:
 1. **Create a branch** — `git checkout -b feat/your-feature` (or `fix/`, `chore/`, etc.). Do this first, before any changes. Never accumulate uncommitted work on `main`
 2. **Up to date with main** — run `git fetch origin main` and check that your branch is not behind `origin/main`. Rebase if needed before starting
 3. **Clean working tree** — run `git status` to ensure there are no uncommitted changes from previous work
-4. **Dependencies synced** — run `uv sync && uv pip install -e .` in `akidocs-core/` if there's any chance dependencies changed
+4. **Dependencies synced** — run `uv sync` in `akidocs-core/` if there's any chance dependencies changed
 
 Catching these issues at the start is far cheaper than discovering them mid-work (e.g., merge conflicts after writing code, wrong branch name on a PR).
 
@@ -33,9 +33,6 @@ cd akidocs-core
 
 # Install dependencies
 uv sync
-
-# Install package in editable mode (required before running tests)
-uv pip install -e .
 
 # Run tests
 uv run python -m pytest
@@ -141,7 +138,7 @@ Development follows **test-driven development (TDD)**.
 
 **Run tests before committing any change:**
 ```bash
-cd akidocs-core && uv sync && uv pip install -e . && uv run python -m pytest
+cd akidocs-core && uv sync && uv run python -m pytest
 ```
 
 ## CI
@@ -150,7 +147,7 @@ GitHub Actions workflow (`.github/workflows/test.yml`):
 - Triggers on push to `main` and pull requests to `main`
 - Runs on `ubuntu-latest`
 - **`lint` job**: checkout -> install uv -> `uv sync` -> `uv run ruff check .` -> `uv run ruff format --check .`
-- **`test` job**: checkout -> install uv -> `uv sync` -> `uv pip install -e .` -> `uv run pytest`
+- **`test` job**: checkout -> install uv -> `uv sync` -> `uv run pytest`
 
 ## GitHub Workflow
 

@@ -35,6 +35,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 #### What's New Internally
 - Added Ruff linter and formatter to dev dependencies with project configuration
 - Added Ruff linting and format checking to CI workflow
+- Added `[build-system]` to `pyproject.toml` — `uv sync` now installs the package and entry points, removing the need for a separate `uv pip install -e .` step
 - Total number of tests: ADD BEFORE RELEASE
 
 ### Akidocs - v0.3.0-alpha / 0.3.0a0 - 2026-02-06

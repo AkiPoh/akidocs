@@ -109,8 +109,6 @@ aki input.md output.pdf --force
 cd ./akidocs-core
 # Sync dependencies from lockfile
 uv sync
-# Install package in editable mode
-uv pip install -e .
 # Run tests (-v for showing individual test results)
 uv run pytest -v
 # Auto-fix lint violations
