@@ -107,7 +107,7 @@ aki input.md output.pdf --force
 ```powershell
 # Move to correct directory from repository root
 cd ./akidocs-core
-# Sync dependencies from lockfile
+# Sync dependencies and install package
 uv sync
 # Run tests (-v for showing individual test results)
 uv run pytest -v
@@ -116,7 +116,7 @@ uv run ruff check . --fix
 # Format code
 uv run ruff format .
 # Output test PDF and open it
-uv run akidocs_core test.md output.pdf -o
+uv run aki test.md output.pdf -o
 ```
 
 **Installing globally and testing build**

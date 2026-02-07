@@ -31,7 +31,7 @@ Catching these issues at the start is far cheaper than discovering them mid-work
 # All commands run from akidocs-core/
 cd akidocs-core
 
-# Install dependencies
+# Install dependencies and package
 uv sync
 
 # Run tests
@@ -47,9 +47,9 @@ uv run ruff format .
 uv run ruff format --check .  # check without modifying
 
 # Run the CLI (dev invocation)
-uv run akidocs_core input.md output.pdf
-uv run akidocs_core input.md output.pdf -o         # open after creation
-uv run akidocs_core input.md output.pdf -s times   # use "times" style
+uv run aki input.md output.pdf
+uv run aki input.md output.pdf -o         # open after creation
+uv run aki input.md output.pdf -s times   # use "times" style
 ```
 
 > **Windows/Git Bash note:** `uv run pytest` fails with "Failed to canonicalize script path" on Windows under Git Bash. Use `uv run python -m pytest` instead. This applies to all pytest invocations throughout this document.
