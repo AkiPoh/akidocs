@@ -1,11 +1,14 @@
 import pytest
 
 from akidocs_core.renderer import render_pdf
-from akidocs_core.tokens import Bold, Header, InlineText, Italic, Paragraph
+from akidocs_core.tokens import Bold, Code, Header, InlineText, Italic, Paragraph
 
 BOLD = frozenset({Bold()})
 ITALIC = frozenset({Italic()})
 BOLD_ITALIC = frozenset({Bold(), Italic()})
+CODE = frozenset({Code()})
+BOLD_CODE = frozenset({Bold(), Code()})
+ITALIC_CODE = frozenset({Italic(), Code()})
 
 
 def assert_valid_pdf_bytes(result: bytes) -> None:
@@ -48,6 +51,32 @@ def test_render_handles_hard_break():
         Paragraph(
             content=[
                 InlineText(content="Line one\nLine two"),
+            ]
+        )
+    ]
+    result = render_pdf(tokens)
+    assert_valid_pdf_bytes(result)
+
+
+def test_render_handles_code_span():
+    tokens = [
+        Paragraph(
+            content=[
+                InlineText(content="hello "),
+                InlineText(content="world", styles=CODE),
+            ]
+        )
+    ]
+    result = render_pdf(tokens)
+    assert_valid_pdf_bytes(result)
+
+
+@pytest.mark.parametrize("style", [CODE, BOLD_CODE, ITALIC_CODE])
+def test_render_handles_code_with_styles(style):
+    tokens = [
+        Paragraph(
+            content=[
+                InlineText(content="styled code", styles=style),
             ]
         )
     ]

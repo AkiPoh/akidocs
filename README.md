@@ -19,6 +19,7 @@ Takes in a Markdown file, parses it, and outputs it as a PDF
   - `**Bold**` is **Bold**
   - `***Bold and Italic***` is ***Bold and Italic***
   - Nested styles: for example `**bold with *italic* inside**` is **bold with *italic* inside** works correctly
+  - `` `Code` `` is `Code` (monospace)
 - Usable as a CLI tool (`aki`)
   - `-h` or `--help` for help information
   - `-v` or `--version` for version information

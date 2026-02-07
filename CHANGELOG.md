@@ -30,6 +30,7 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 - Header blocks now terminate at single newline (`# Title\nText` → Header + Paragraph)
 - Hard line breaks: two or more trailing spaces before a newline now create a line break in PDF output
 - Soft line breaks: single newlines within paragraphs now render as spaces
+- Inline code spans: `` `code` `` renders with its own font family and style (`code_font_family`, `code_font_style`). Content inside backticks is literal — no style parsing. Code spans escape enclosing styles
 
 #### What's New Internally
 - Added Ruff linter and formatter to dev dependencies with project configuration

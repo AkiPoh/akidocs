@@ -100,8 +100,8 @@ Markdown text -> tokenize() -> list[Token] -> render_pdf() -> PDF bytes
 **Key modules and their roles:**
 
 - `tokenizer.py` — Line-by-line tokenization: headers terminate at single newline, non-header lines accumulate into `Paragraph` blocks separated by blank lines
-- `inline_tokenizer.py` — Recursively parses `*`, `**`, `***` delimiters for inline styles. Handles nesting
-- `tokens.py` — Immutable data structures: `Header`, `Paragraph`, `InlineText`, `Bold`, `Italic`. Union type `Token = Header | Paragraph`
+- `inline_tokenizer.py` — Handles backtick code spans first (literal content, no nested parsing), then recursively parses `*`, `**`, `***` delimiters for inline styles. Handles nesting
+- `tokens.py` — Immutable data structures: `Header`, `Paragraph`, `InlineText`, `Bold`, `Italic`, `Code`. Union type `Token = Header | Paragraph`
 - `renderer.py` — Converts token list to PDF bytes using fpdf2. Uses `match` statements for token dispatch
 - `styles.py` — Three named presets (`generic`, `times`, `regard`) with shorthand aliases (`g`, `t`, `r`)
 - `style_base.py` — Frozen `Style` dataclass. All dimensions stored in millimeters; `pt_to_mm()` / `mm_to_pt()` for conversion at boundaries
@@ -173,7 +173,7 @@ All issues and PRs use a conventional prefix in their title (from `DEVELOPMENT.m
 2. **PR titles match the issue prefix** — a `feat:` issue gets a `feat:` PR
 3. **Fork-based contributions** — work is done on a fork and PRs target `main` on the upstream repo
 4. **TDD approach** — tests are written first or alongside the implementation; pytest must pass before merge. Commits should reflect the Red-Green-Refactor cycle where applicable
-5. **CHANGELOG.md updates** — PRs that add features or change behavior include a changelog entry under the current dev version
+5. **README.md and CHANGELOG.md updates** — PRs that add features, change user-facing behavior, or modify dev tooling affecting human developers should update README.md and CHANGELOG.md as appropriate. README.md reflects current capabilities; CHANGELOG.md tracks what changed per version
 6. **CI gate** — the GitHub Actions test workflow runs on all PRs to `main` and must pass
 7. **Keep PR up to date** — when changes are made after the PR is created, update the title and description to accurately reflect the current state of the PR. The PR title and top-level bullet summary are used as the squash merge commit message — they must always be current
 8. **Don't amend commits** — PRs are squash merged, so individual commits don't need to be clean. Use separate commits to document the process, including Red-Green-Refactor steps
@@ -210,6 +210,7 @@ Versions follow the pattern `X.Y.Z` with PEP 440 suffixes:
 - The current dev version section sits at the top of the version list in `CHANGELOG.md`
 - Entries are roughly chronological — earlier changes first, later additions (workflow changes, tooling, etc.) toward the end
 - `#### What's New` for user-facing changes, `#### What's New Internally` for internal changes
+- Entries should integrate brief inline examples where they add precision (e.g., `` `code` `` renders in bold monospace)
 - The last line in "What's New Internally" is `Total number of tests: ADD BEFORE RELEASE` during development, replaced with the actual count at release time
 
 ### Release Checklist
@@ -245,3 +246,5 @@ To start the next dev cycle, bump the version to the next dev marker (e.g., `0.4
 3. **Style system**: Frozen `Style` dataclass ensures styles are never accidentally mutated. All three presets are defined in `styles.py` with a lookup dict including shorthand aliases.
 4. **Error handling**: CLI uses `sys.exit(1)` for user-facing errors. Internal functions return `None` or `-1` for "not found" cases rather than raising exceptions.
 5. **File overwrite safety**: CLI supports `--force`, `--non-interactive`, and interactive prompt for existing output files.
+6. **Code spans are literal**: Backtick-delimited content is not parsed for nested styles. Handled before the DELIMITERS system in `tokenize_inline()`.
+7. **Code spans escape enclosing styles**: At render time, `code_font_style` is used as the complete font style for code spans, ignoring delimiter-influenced Bold/Italic. This follows the convention that code is visually independent from its surrounding context.
