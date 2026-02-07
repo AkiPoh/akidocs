@@ -32,7 +32,8 @@ uv tool install git+https://github.com/AkiPoh/akidocs.git@v0.2.1-alpha#subdirect
 - Soft line breaks: single newlines within paragraphs now render as spaces
 
 #### What's New Internally
--
+- Added Ruff linter and formatter to dev dependencies with project configuration
+- Added Ruff linting and format checking to CI workflow
 - Total number of tests: ADD BEFORE RELEASE
 
 ### Akidocs - v0.3.0-alpha / 0.3.0a0 - 2026-02-06

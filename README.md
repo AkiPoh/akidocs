@@ -35,6 +35,7 @@ Takes in a Markdown file, parses it, and outputs it as a PDF
 - Python 3.14
 - uv for package and dependency management
 - fpdf2 for PDF generation
+- ruff for linting and formatting
 - pytest for testing
 - akidocs-core (this package)
 
@@ -111,6 +112,10 @@ uv sync
 uv pip install -e .
 # Run tests (-v for showing individual test results)
 uv run pytest -v
+# Auto-fix lint violations
+uv run ruff check . --fix
+# Format code
+uv run ruff format .
 # Output test PDF and open it
 uv run akidocs_core test.md output.pdf -o
 ```
